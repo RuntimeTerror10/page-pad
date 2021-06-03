@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+
+  "name": "WebNotes",
+  "description": "Create notes instantly while browsing the web.",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_popup": "popup.html"
+  },
+  "permissions": [
+   "tabs"
+   ]
+}
