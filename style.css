@@ -1,0 +1,23 @@
+body {
+  width: 400px;
+  min-height: 450px;
+  overflow-y: scroll;
+}
+.ext-head {
+  text-align: center;
+  font-size: 1.9rem;
+}
+.add-btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  font-size: 1.8rem;
+  height: 60px;
+}
+.no-content {
+  display: flex;
+  justify-content: center;
+  margin-top: 140px;
+}
