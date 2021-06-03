@@ -5,7 +5,8 @@ body {
 }
 .ext-head {
   text-align: center;
-  font-size: 1.9rem;
+  font-size: 2rem;
+  padding-top: 8px;
 }
 .add-btn {
   position: fixed;
@@ -15,9 +16,42 @@ body {
   right: 0;
   font-size: 1.8rem;
   height: 60px;
+  display: block;
 }
 .no-content {
   display: flex;
   justify-content: center;
   margin-top: 140px;
+}
+.no-content h1 {
+  font-size: 1.6rem;
+}
+.inputdiv {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  display: none;
+  left: 0;
+}
+.inputArea {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  width: 350px;
+}
+.plus-btn {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 62px;
+  font-size: 1.9rem;
+  background: rgb(22, 182, 22);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.plus-btn:hover {
+  background: rgb(32, 145, 32);
 }
