@@ -8,16 +8,14 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
     window.addEventListener("keydown", (e) => {
       if ((e.key = "Enter")) {
         hideNoContentDiv();
-        notesContainer.style.display = "block";
-        textBox.focus();
+        displayNotesContaniner();
       }
     });
   } else {
     hideNoContentDiv();
-    notesContainer.style.display = "block";
+    displayNotesContaniner();
     let str = JSON.parse(window.localStorage.getItem(currentUrl));
     textBox.value = str;
-    textBox.focus();
   }
   textBox.addEventListener("blur", () => {
     var userNotes = textBox.value;
@@ -29,4 +27,8 @@ function hideNoContentDiv() {
 }
 function storeNotes(url, notes) {
   window.localStorage.setItem(url, JSON.stringify(notes));
+}
+function displayNotesContaniner() {
+  notesContainer.style.display = "block";
+  textBox.focus();
 }
