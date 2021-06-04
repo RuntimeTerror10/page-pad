@@ -9,16 +9,6 @@ body {
   font-size: 2rem;
   margin-top: 3px;
 }
-.add-btn {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  right: 0;
-  font-size: 1.8rem;
-  height: 60px;
-  display: block;
-}
 .no-content {
   display: block;
   justify-content: center;
@@ -39,8 +29,6 @@ body {
   display: none;
 }
 .text-box {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid #999999;
   width: 100%;
