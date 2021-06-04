@@ -6,7 +6,7 @@ body {
 .ext-head {
   text-align: center;
   font-size: 2rem;
-  padding-top: 8px;
+  padding-top: 5px;
 }
 .add-btn {
   position: fixed;
@@ -54,4 +54,8 @@ body {
 }
 .plus-btn:hover {
   background: rgb(32, 145, 32);
+}
+.note {
+  text-align: center;
+  font-size: 1.3rem;
 }
