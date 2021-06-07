@@ -47,6 +47,11 @@ body {
   position: absolute;
   bottom: 0;
 }
-.show-all-notes-container {
+.all-notes-container {
+  display: none;
+}
+.no-notes {
+  text-align: center;
+  font-size: 1.3rem;
   display: none;
 }
