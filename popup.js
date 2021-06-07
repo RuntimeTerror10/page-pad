@@ -3,21 +3,23 @@ const notesContainer = document.querySelector(".notes-container");
 const textBox = document.getElementById("notes");
 var showCheckBox = document.querySelector("#all-notes");
 const allNotes = document.querySelector(".show-all-notes");
-const allNotesContainer = document.querySelector(".show-all-notes-container");
-
-allNotes.style.display = "none";
+const allNotesContainer = document.querySelector(".all-notes-container");
+const noNotesText = document.querySelector(".no-notes");
 
 chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
   var currentUrl = tabs[0].url;
-  var pageTitle = tabs[0].title;
+
   if (localStorage.getItem(currentUrl) === null) {
     window.addEventListener("keydown", (e) => {
       if ((e.key = "Enter")) {
         hideNoContentDiv();
         displayNotesContaniner();
+        textBox.focus();
       }
     });
   } else {
+    /*
+     */
     hideNoContentDiv();
     displayNotesContaniner();
     let str = JSON.parse(window.localStorage.getItem(currentUrl));
@@ -36,6 +38,7 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
   showCheckBox.addEventListener("change", () => {
     if (showCheckBox.checked === true) {
       hideDisplayNotes();
+      hideNoContentDiv();
       allNotesContainer.style.display = "block";
       var urlKeys = [];
       for (let key in localStorage) {
@@ -46,18 +49,24 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
       for (let i = 0; i < urlKeys.length; i++) {
         var tempUrl = new URL(urlKeys[i]);
         var tempHostName = tempUrl.hostname;
+        var dispUrl = tempUrl.href.replace(/(^\w+:|^)\/\//, "");
+
         if (currentHostName == tempHostName) {
           /**/
           var pageNotes = JSON.parse(window.localStorage.getItem(tempUrl));
           var noteTab = document.createElement("details");
-          noteTab.innerHTML = `<summary>${tempUrl}</summary><p>${pageNotes}</p>`;
+          noteTab.innerHTML = `<summary>${dispUrl}</summary><p>${pageNotes}</p>`;
           allNotesContainer.appendChild(noteTab);
         } else {
           console.log("not a match");
         }
       }
     } else {
-      displayNotesContaniner();
+      if (localStorage.getItem(currentUrl) === null) {
+        showNoContenDiv();
+      } else {
+        displayNotesContaniner();
+      }
       hideNresetAllNotes();
     }
   });
@@ -73,7 +82,6 @@ function storeNotes(url, notes) {
 }
 function displayNotesContaniner() {
   notesContainer.style.display = "block";
-  textBox.focus();
 }
 function hideDisplayNotes() {
   notesContainer.style.display = "none";
