@@ -3,6 +3,7 @@
 
   "name": "WebNotes",
   "description": "Create notes instantly while browsing the web.",
+  "author": "Parth Bhardwaj",
   "version": "1.0",
 
   "browser_action": {
