@@ -1,7 +1,7 @@
 body {
   width: 400px;
-  min-height: 450px;
-  max-height: 450px;
+  min-height: 520px;
+  max-height: 520px;
   overflow-y: scroll;
 }
 .ext-head {
@@ -36,4 +36,17 @@ body {
   padding: 0 3px;
   font-size: 1.4rem;
   resize: none;
+}
+.showNotes-checkbox {
+  margin: 10px 0;
+}
+.notes-label {
+  font-size: 1rem;
+}
+.show-all-notes {
+  position: absolute;
+  bottom: 0;
+}
+.show-all-notes-container {
+  display: none;
 }
