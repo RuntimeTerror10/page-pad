@@ -37,7 +37,7 @@ body {
   font-size: 1.4rem;
   resize: none;
 }
-.showNotes-checkbox {
+.show-notes-checkbox {
   margin: 10px 0;
 }
 .notes-label {
@@ -48,10 +48,5 @@ body {
   bottom: 0;
 }
 .all-notes-container {
-  display: none;
-}
-.no-notes {
-  text-align: center;
-  font-size: 1.3rem;
   display: none;
 }
