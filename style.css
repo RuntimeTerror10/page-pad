@@ -1,13 +1,19 @@
 body {
   width: 400px;
-  min-height: 520px;
-  max-height: 520px;
+  min-height: 550px;
+  max-height: 550px;
   overflow-y: scroll;
+  background: rgba(249, 249, 169, 0.913);
 }
 .ext-head {
   text-align: center;
   font-size: 2rem;
-  margin-top: 3px;
+  margin-top: 2px;
+}
+hr {
+  margin: 10px -20px 10px;
+  border: 0;
+  border-top: 1px solid rgb(240, 27, 27);
 }
 
 .notes-container {
@@ -17,12 +23,22 @@ body {
 }
 .text-box {
   box-sizing: border-box;
-  border: 1px solid #999999;
+  padding: 3px 5px;
   width: 104%;
   margin: 5px -8px;
-  padding: 0 3px;
+  margin-top: 10px;
+  font-family: "Courier New", Courier, monospace;
   font-size: 1.3rem;
+  line-height: 28px;
   resize: none;
+  border: 0.5px solid #33d;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    #33d 28px
+  );
+  background-attachment: local;
 }
 .show-notes-checkbox {
   margin: 10px 0;
