@@ -23,7 +23,7 @@ hr {
 }
 .text-box {
   box-sizing: border-box;
-  padding: 3px 5px;
+  padding: 2.5px 5px;
   width: 104%;
   margin: 5px -8px;
   margin-top: 10px;
@@ -31,7 +31,7 @@ hr {
   font-size: 1.3rem;
   line-height: 28px;
   resize: none;
-  border: 0.5px solid #33d;
+  border: none;
   background: repeating-linear-gradient(
     to bottom,
     transparent,
