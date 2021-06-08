@@ -25,6 +25,7 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
     textBox.value = str;
     dispCheckBox();
   }
+
   textBox.addEventListener("blur", () => {
     var userNotes = textBox.value;
     if (userNotes.length >= 1) {
