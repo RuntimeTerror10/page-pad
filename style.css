@@ -9,19 +9,6 @@ body {
   font-size: 2rem;
   margin-top: 3px;
 }
-.no-content {
-  display: block;
-  justify-content: center;
-  margin-top: 140px;
-}
-.no-content h1 {
-  font-size: 1.6rem;
-}
-.no-content h2 {
-  font-size: 1.3rem;
-  text-align: center;
-  margin-top: 20px;
-}
 
 .notes-container {
   width: 100%;
@@ -31,10 +18,10 @@ body {
 .text-box {
   box-sizing: border-box;
   border: 1px solid #999999;
-  width: 100%;
-  margin: 5px 0;
+  width: 104%;
+  margin: 5px -8px;
   padding: 0 3px;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   resize: none;
 }
 .show-notes-checkbox {
