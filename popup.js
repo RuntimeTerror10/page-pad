@@ -88,6 +88,5 @@ function hideDisplayNotes() {
 }
 function hideNresetAllNotes() {
   allNotesContainer.style.display = "none";
-  allNotesContainer.innerText = "";
   allNotesContainer.innerHTML = "";
 }
