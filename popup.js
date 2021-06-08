@@ -1,10 +1,9 @@
 const noContentDiv = document.querySelector(".no-content");
 const notesContainer = document.querySelector(".notes-container");
 const textBox = document.getElementById("notes");
-var showCheckBox = document.querySelector("#all-notes");
-const allNotes = document.querySelector(".show-all-notes");
+const showCheckBox = document.querySelector(".js-show-notes-checkbox");
+const allNotes = document.querySelector(".js-show-all-notes");
 const allNotesContainer = document.querySelector(".all-notes-container");
-const noNotesText = document.querySelector(".no-notes");
 
 chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
   var currentUrl = tabs[0].url;
@@ -14,32 +13,33 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
       if ((e.key = "Enter")) {
         hideNoContentDiv();
         displayNotesContaniner();
-        textBox.focus();
+        hideCheckBox();
+        hideNresetAllNotes();
       }
     });
   } else {
-    /*
-     */
     hideNoContentDiv();
     displayNotesContaniner();
+    textBox.focus();
     let str = JSON.parse(window.localStorage.getItem(currentUrl));
     textBox.value = str;
-    allNotes.style.display = "block";
+    dispCheckBox();
   }
   textBox.addEventListener("blur", () => {
     var userNotes = textBox.value;
-    if (userNotes.length >= 2) {
+    if (userNotes.length >= 1) {
       storeNotes(currentUrl, userNotes);
     } else {
       showNoContenDiv();
       hideDisplayNotes();
+      dispCheckBox();
     }
   });
   showCheckBox.addEventListener("change", () => {
     if (showCheckBox.checked === true) {
       hideDisplayNotes();
       hideNoContentDiv();
-      allNotesContainer.style.display = "block";
+      showAllNotesContainer();
       var urlKeys = [];
       for (let key in localStorage) {
         urlKeys.push(key);
@@ -49,10 +49,9 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
       for (let i = 0; i < urlKeys.length; i++) {
         var tempUrl = new URL(urlKeys[i]);
         var tempHostName = tempUrl.hostname;
-        var dispUrl = tempUrl.href.replace(/(^\w+:|^)\/\//, "");
+        var dispUrl = tempUrl.href.replace(/(^\w+:|^)\/\//, ""); //removing https:// from url
 
         if (currentHostName == tempHostName) {
-          /**/
           var pageNotes = JSON.parse(window.localStorage.getItem(tempUrl));
           var noteTab = document.createElement("details");
           noteTab.innerHTML = `<summary>${dispUrl}</summary><p>${pageNotes}</p>`;
@@ -89,4 +88,13 @@ function hideDisplayNotes() {
 function hideNresetAllNotes() {
   allNotesContainer.style.display = "none";
   allNotesContainer.innerHTML = "";
+}
+function hideCheckBox() {
+  allNotes.style.display = "none";
+}
+function dispCheckBox() {
+  allNotes.style.display = "block";
+}
+function showAllNotesContainer() {
+  allNotesContainer.style.display = "block";
 }
