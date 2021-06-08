@@ -1,4 +1,3 @@
-const noContentDiv = document.querySelector(".no-content");
 const notesContainer = document.querySelector(".notes-container");
 const textBox = document.getElementById("notes");
 const showCheckBox = document.querySelector(".js-show-notes-checkbox");
@@ -9,16 +8,11 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
   var currentUrl = tabs[0].url;
 
   if (localStorage.getItem(currentUrl) === null) {
-    window.addEventListener("keydown", (e) => {
-      if ((e.key = "Enter")) {
-        hideNoContentDiv();
-        displayNotesContaniner();
-        hideCheckBox();
-        hideNresetAllNotes();
-      }
-    });
+    displayNotesContaniner();
+    dispCheckBox();
+    hideNresetAllNotes();
+    textBox.focus();
   } else {
-    hideNoContentDiv();
     displayNotesContaniner();
     textBox.focus();
     let str = JSON.parse(window.localStorage.getItem(currentUrl));
@@ -30,16 +24,13 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
     var userNotes = textBox.value;
     if (userNotes.length >= 1) {
       storeNotes(currentUrl, userNotes);
-    } else {
-      showNoContenDiv();
-      hideDisplayNotes();
+      displayNotesContaniner();
       dispCheckBox();
     }
   });
   showCheckBox.addEventListener("change", () => {
     if (showCheckBox.checked === true) {
       hideDisplayNotes();
-      hideNoContentDiv();
       showAllNotesContainer();
       var urlKeys = [];
       for (let key in localStorage) {
@@ -62,11 +53,7 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
         }
       }
     } else {
-      if (localStorage.getItem(currentUrl) === null) {
-        showNoContenDiv();
-      } else {
-        displayNotesContaniner();
-      }
+      displayNotesContaniner();
       hideNresetAllNotes();
     }
   });
