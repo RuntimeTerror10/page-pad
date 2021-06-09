@@ -22,6 +22,9 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
 
   textBox.addEventListener("blur", () => {
     var userNotes = textBox.value;
+    if (userNotes.length == 0) {
+      removeNotes(currentUrl);
+    }
     if (userNotes.length >= 1) {
       storeNotes(currentUrl, userNotes);
       displayNotesContaniner();
@@ -67,6 +70,9 @@ function hideNoContentDiv() {
 }
 function storeNotes(url, notes) {
   window.localStorage.setItem(url, JSON.stringify(notes));
+}
+function removeNotes(url) {
+  window.localStorage.removeItem(url);
 }
 function displayNotesContaniner() {
   notesContainer.style.display = "block";
