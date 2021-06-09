@@ -4,7 +4,7 @@ const showCheckBox = document.querySelector(".js-show-notes-checkbox");
 const allNotes = document.querySelector(".js-show-all-notes");
 const allNotesContainer = document.querySelector(".all-notes-container");
 
-chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
+chrome.tabs.query({ active: true }, function (tabs) {
   var currentUrl = tabs[0].url;
 
   if (localStorage.getItem(currentUrl) === null) {
@@ -18,16 +18,20 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
     textBox.value = str;
   }
 
-  textBox.addEventListener("blur", () => {
+  textBox.addEventListener("blur", async () => {
     var userNotes = textBox.value;
+
     if (userNotes.length == 0) {
       // if user clears all the notes
       removeNotes(currentUrl);
+      chrome.browserAction.setBadgeText({ text: "" });
     }
     if (userNotes.length >= 1) {
       //if user has added some notes
       storeNotes(currentUrl, userNotes);
       displayNotesContaniner();
+      chrome.browserAction.setBadgeBackgroundColor({ color: "green" });
+      chrome.browserAction.setBadgeText({ text: "*" });
     }
   });
   showCheckBox.addEventListener("change", () => {
