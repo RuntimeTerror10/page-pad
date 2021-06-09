@@ -3,7 +3,7 @@ const textBox = document.getElementById("notes");
 const showCheckBox = document.querySelector(".js-show-notes-checkbox");
 const allNotes = document.querySelector(".js-show-all-notes");
 const allNotesContainer = document.querySelector(".all-notes-container");
-
+const popUpBody = document.querySelector("body");
 chrome.tabs.query({ active: true }, function (tabs) {
   var currentUrl = tabs[0].url;
 
@@ -18,7 +18,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
     textBox.value = str;
   }
 
-  textBox.addEventListener("blur", async () => {
+  textBox.addEventListener("blur", () => {
     var userNotes = textBox.value;
 
     if (userNotes.length == 0) {
@@ -64,6 +64,20 @@ chrome.tabs.query({ active: true }, function (tabs) {
       hideNresetAllNotes();
     }
   });
+});
+
+popUpBody.addEventListener("blur", () => {
+  var userNote = textBox.value;
+  if (userNote.length == 0) {
+    // if user clears all the notes
+    chrome.browserAction.setBadgeText({ text: "" });
+  }
+  if (userNote.length >= 1) {
+    //if user has added some notes
+
+    chrome.browserAction.setBadgeBackgroundColor({ color: "green" });
+    chrome.browserAction.setBadgeText({ text: "*" });
+  }
 });
 
 function storeNotes(url, notes) {
