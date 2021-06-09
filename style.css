@@ -41,14 +41,17 @@ hr {
   background-attachment: local;
 }
 .show-notes-checkbox {
-  margin: 10px 0;
+  margin: 5px 0;
+  background-color: #eee;
+  transform: scale(1.7);
 }
 .notes-label {
-  font-size: 1rem;
+  font-size: 1.18rem;
+  padding-left: 8px;
 }
 .show-all-notes {
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
 }
 .all-notes-container {
   display: none;
