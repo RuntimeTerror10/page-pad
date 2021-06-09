@@ -52,21 +52,22 @@ body {
 .show-all-notes {
   position: absolute;
   bottom: 10px;
+  left: 10px;
 }
 .all-notes-container {
   display: none;
   overflow-y: scroll;
   overflow-x: hidden;
-  min-height: 430px;
-  max-height: 430px;
+  min-height: 380px;
+  max-height: 380px;
 }
 .summary-heading {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   overflow-wrap: break-word;
 }
 .all-notes-tab {
-  margin: 25px 0px;
+  margin: 20px 0px;
   background: rgb(255, 255, 255);
   border-radius: 5px;
   border: 1px solid #191919;
@@ -109,4 +110,9 @@ details[open] summary ~ * {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.site-name {
+  display: none;
+  text-align: center;
+  font-size: 1.4rem;
 }
