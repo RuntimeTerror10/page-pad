@@ -10,7 +10,7 @@ body {
   font-size: 2rem;
   margin-top: 2px;
 }
-hr {
+.title-hr {
   margin: 10px -20px 10px;
   border: 0;
   border-top: 1px solid rgb(240, 27, 27);
@@ -55,4 +55,49 @@ hr {
 }
 .all-notes-container {
   display: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  min-height: 430px;
+  max-height: 430px;
+}
+.summary-heading {
+  font-size: 1.1rem;
+  cursor: pointer;
+  overflow-wrap: break-word;
+}
+.all-notes-tab {
+  margin: 25px 0px;
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  border: 1px solid #191919;
+  padding: 4px;
+  transition: height 0.2s ease-in-out;
+}
+.all-notes-hr {
+  margin: 15px 0;
+  border-color: #191919;
+  opacity: 0.4;
+}
+.readonly-textarea {
+  font-size: 1.3rem;
+  font-family: "Courier New", Courier, monospace;
+  resize: none;
+  box-sizing: border-box;
+  padding: 2.5px 5px;
+  width: 100%;
+  margin: 0 auto;
+}
+details[open] summary ~ * {
+  animation: sweep 0.25s ease-in-out;
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
