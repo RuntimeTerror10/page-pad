@@ -46,7 +46,8 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
         if (currentHostName == tempHostName) {
           var pageNotes = JSON.parse(window.localStorage.getItem(tempUrl));
           var noteTab = document.createElement("details");
-          noteTab.innerHTML = `<summary>${dispUrl}</summary><p>${pageNotes}</p>`;
+          noteTab.className = "all-notes-tab";
+          noteTab.innerHTML = `<summary class="summary-heading">${dispUrl}</summary><hr class="all-notes-hr"/><textarea rows="4" cols="30" spellcheck="false" readonly class="readonly-textarea" >${pageNotes}</textarea>`;
           allNotesContainer.appendChild(noteTab);
         } else {
           console.log("not a match");
