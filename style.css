@@ -87,6 +87,7 @@ body {
   padding: 2.5px 5px;
   width: 100%;
   margin: 0 auto;
+  border: none;
   background: repeating-linear-gradient(
     to bottom,
     transparent,
