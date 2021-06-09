@@ -15,8 +15,8 @@
   "commands": {
     "toggle-feature-foo": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Space",
-        "mac": "Command+Shift+Space"
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
       },
       "description": "Toggle feature foo"
     },
@@ -24,7 +24,7 @@
       "suggested_key": {
         "windows": "Ctrl+Shift+Space",
         "mac": "Command+Shift+Space",
-        "chromeos": "Ctrl+Shift+U",
+        "chromeos": "Ctrl+Shift+Space",
         "linux": "Ctrl+Shift+Space"
       }
     }
