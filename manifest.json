@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "WebNotes",
   "description": "Create notes instantly while browsing the web.",
