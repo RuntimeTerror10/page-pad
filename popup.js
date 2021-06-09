@@ -9,7 +9,6 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
 
   if (localStorage.getItem(currentUrl) === null) {
     displayNotesContaniner();
-    dispCheckBox();
     hideNresetAllNotes();
     textBox.focus();
   } else {
@@ -17,18 +16,18 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
     textBox.focus();
     let str = JSON.parse(window.localStorage.getItem(currentUrl));
     textBox.value = str;
-    dispCheckBox();
   }
 
   textBox.addEventListener("blur", () => {
     var userNotes = textBox.value;
     if (userNotes.length == 0) {
+      // if user clears all the notes
       removeNotes(currentUrl);
     }
     if (userNotes.length >= 1) {
+      //if user has added some notes
       storeNotes(currentUrl, userNotes);
       displayNotesContaniner();
-      dispCheckBox();
     }
   });
   showCheckBox.addEventListener("change", () => {
@@ -62,12 +61,7 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (tabs) {
     }
   });
 });
-function showNoContenDiv() {
-  noContentDiv.style.display = "block";
-}
-function hideNoContentDiv() {
-  noContentDiv.style.display = "none";
-}
+
 function storeNotes(url, notes) {
   window.localStorage.setItem(url, JSON.stringify(notes));
 }
@@ -84,12 +78,7 @@ function hideNresetAllNotes() {
   allNotesContainer.style.display = "none";
   allNotesContainer.innerHTML = "";
 }
-function hideCheckBox() {
-  allNotes.style.display = "none";
-}
-function dispCheckBox() {
-  allNotes.style.display = "block";
-}
+
 function showAllNotesContainer() {
   allNotesContainer.style.display = "block";
 }
