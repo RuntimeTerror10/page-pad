@@ -35,7 +35,7 @@ Web Notes is a Chrome extension for creating notes while browsing the web. Creat
   <li>Works offline</li>
   <li>Autosave feature</li>
   <li>Fully keyboard accessible</li>
-  <li>Notified if the user has created notes for the current webpage</li>
+  <li>User is notified if notes are already created for the current webpage</li>
   
 </ul>
 
