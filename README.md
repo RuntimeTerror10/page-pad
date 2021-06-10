@@ -74,5 +74,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [Parth Bhardwaj](https://twitter.com/parth_codes) 
 
-Project Link: [https://github.com/RuntimeTerror10/Web-Notes](https://github.com/RuntimeTerror10/Web-Notes)
 
