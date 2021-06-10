@@ -116,3 +116,8 @@ details[open] summary ~ * {
   text-align: center;
   font-size: 1.4rem;
 }
+.no-notes {
+  display: none;
+  margin-top: 200px;
+  text-align: center;
+}
