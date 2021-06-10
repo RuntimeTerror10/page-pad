@@ -20,7 +20,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-# About The Project
+# About Web Notes
 
 
 Web Notes is a Chrome extension for creating notes while browsing the web. Create notes instantly for individual webpages which are fully editable.  
