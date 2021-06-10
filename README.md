@@ -11,7 +11,7 @@
   <p align="center">
    Create notes instantly for webpages while browsing the web
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/RuntimeTerror10/Web-Notes"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     
