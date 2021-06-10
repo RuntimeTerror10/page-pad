@@ -6,7 +6,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h2 align="center">Web Notes</h2>
+  <h1 align="center">Web Notes</h1>
 
   <p align="center">
    Create notes instantly for webpages while browsing the web
@@ -20,14 +20,14 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+# About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 Web Notes is a Chrome extension for creating notes while browsing the web. Create notes instantly for individual webpages which are fully editable.  
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 
-## Features
+# Features
 <ul>
 <li>Create notes for individual webpages</li>
   <li>Fully editable notes</li>
@@ -40,11 +40,17 @@ Web Notes is a Chrome extension for creating notes while browsing the web. Creat
 </ul>
 
 <!-- GETTING STARTED -->
-## Getting Started
+# Getting Started
+ <h2>   Keyboard Shortcuts</h2>
+  <p>Use the keyboard shortcut given below for different OS to open the extension<p>
+  <ul>
+    <li>Windows : <b>Ctrl+Shift+Space</b></li>
+    <li>Mac : <b>Command+Shift+Space</b></li>
+    <li>ChromeOS : <b>Ctrl+Shift+Space</b></li>
+</ul>
 
 
-
-## Contributing
+# Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -57,14 +63,14 @@ Contributions are what make the open source community such an amazing place to b
 
 
 <!-- LICENSE -->
-## License
+# License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
 <!-- CONTACT -->
-## Contact
+# Contact
 
 Your Name - [Parth Bhardwaj](https://twitter.com/parth_codes) 
 
