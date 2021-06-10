@@ -5,6 +5,7 @@ const allNotes = document.querySelector(".js-show-all-notes");
 const allNotesContainer = document.querySelector(".all-notes-container");
 const popUpBody = document.querySelector("body");
 const SiteName = document.querySelector(".site-name");
+const noNotes = document.querySelector(".no-notes");
 
 chrome.tabs.query({ active: true }, function (tabs) {
   var currentUrl = tabs[0].url;
@@ -38,6 +39,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
   });
   showCheckBox.addEventListener("change", () => {
     if (showCheckBox.checked === true) {
+      noNotes.style.display = "block";
       hideDisplayNotes();
       SiteName.style.display = "block";
       showAllNotesContainer();
@@ -54,6 +56,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
         var tempDispUrl = tempUrl.href;
         var pageId = tempDispUrl.substr(tempDispUrl.indexOf("/", 8) + 1);
         if (currentHostName == tempHostName) {
+          noNotes.style.display = "none";
           var pageNotes = JSON.parse(window.localStorage.getItem(tempUrl));
           var noteTab = document.createElement("details");
           noteTab.className = "all-notes-tab";
@@ -67,6 +70,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
       displayNotesContaniner();
       hideNresetAllNotes();
       SiteName.style.display = "none";
+      noNotes.style.display = "none";
     }
   });
 });
