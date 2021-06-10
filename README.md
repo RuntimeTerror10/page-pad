@@ -41,14 +41,14 @@ Web Notes is a Chrome extension for creating notes while browsing the web. Creat
 
 <!-- GETTING STARTED -->
 # Getting Started
- <h2>   Keyboard Shortcuts</h2>
+  ### [Download Chrome Extension](https://twitter.com/parth_codes)
+  ### <h2>Keyboard Shortcuts</h2>
   <p>Use the keyboard shortcut given below for different OS to open the extension<p>
   <ul>
     <li>Windows : <b>Ctrl+Shift+Space</b></li>
     <li>Mac : <b>Command+Shift+Space</b></li>
     <li>ChromeOS : <b>Ctrl+Shift+Space</b></li>
 </ul>
-
 
 # Contributing
 
