@@ -70,13 +70,3 @@ Your Name - [Parth Bhardwaj](https://twitter.com/parth_codes)
 
 Project Link: [https://github.com/RuntimeTerror10/Web-Notes](https://github.com/RuntimeTerror10/Web-Notes)
 
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* [Font Awesome](https://fontawesome.com)
-
-
-
-
