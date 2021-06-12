@@ -13,19 +13,12 @@
    "default_popup": "popup.html"
   },
   "commands": {
-    "toggle-feature-foo": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+U",
-        "mac": "Command+Shift+U"
-      },
-      "description": "Toggle feature foo"
-    },
    "_execute_browser_action": {
       "suggested_key": {
-        "windows": "Ctrl+Shift+Space",
+        "windows": "Ctrl+Shift+U",
         "mac": "Command+Shift+Space",
-        "chromeos": "Ctrl+Shift+Space",
-        "linux": "Ctrl+Shift+Space"
+        "chromeos": "Ctrl+Shift+U",
+        "linux": "Ctrl+Shift+U"
       }
     }
   },
