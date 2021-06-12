@@ -9,7 +9,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h1 align="center">Web Notes</h1>
+  <h1 align="center">Page-Pad</h1>
 
   <p align="center">
    Create notes instantly for webpages while browsing the web
@@ -24,7 +24,7 @@
 # About Web-Notes
 
 
-Web Notes is a Chrome extension for creating notes while browsing the web. Create notes instantly for individual webpages which are fully editable.  
+Page-Pad is a Chrome extension for creating notes while browsing the web. Create notes instantly for individual webpages which are fully editable.  
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 
@@ -37,6 +37,13 @@ Web Notes is a Chrome extension for creating notes while browsing the web. Creat
   <li>Autosave feature</li>
   <li>Fully keyboard accessible</li>
   <li>User is notified if notes are already created for the current webpage</li>
+  
+</ul>
+<h2>Upcoming features</h2>
+<ul>
+<li>Rich text editor with formatting and image support</li>
+  <li>Voice based notes (Speech to text)</li>
+  <li>Quick note addition</li>
   
 </ul>
 
