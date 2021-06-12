@@ -4,20 +4,24 @@ const showCheckBox = document.querySelector(".js-show-notes-checkbox");
 const allNotes = document.querySelector(".js-show-all-notes");
 const allNotesContainer = document.querySelector(".all-notes-container");
 const popUpBody = document.querySelector("body");
-const SiteName = document.querySelector(".site-name");
+const siteName = document.querySelector(".site-name");
 const noNotes = document.querySelector(".no-notes");
 
 chrome.tabs.query({ active: true }, function (tabs) {
-  var currentUrl = tabs[0].url;
+  const currentUrl = tabs[0].url;
+  const url = new URL(currentUrl);
+  const storageKey = `${url.origin}${url.pathname}`;
 
-  if (localStorage.getItem(currentUrl) === null) {
+  const fetchedItem = localStorage.getItem(storageKey);
+
+  if (fetchedItem === null) {
     displayNotesContaniner();
     hideNresetAllNotes();
     textBox.focus();
   } else {
     displayNotesContaniner();
     textBox.focus();
-    let str = JSON.parse(window.localStorage.getItem(currentUrl));
+    let str = JSON.parse(fetchedItem);
     textBox.value = str;
   }
 
@@ -26,12 +30,12 @@ chrome.tabs.query({ active: true }, function (tabs) {
 
     if (userNotes.length == 0) {
       // if user clears all the notes
-      removeNotes(currentUrl);
+      removeNotes(storageKey);
       chrome.browserAction.setBadgeText({ text: "" });
     }
     if (userNotes.length >= 1) {
       //if user has added some notes
-      storeNotes(currentUrl, userNotes);
+      storeNotes(storageKey, userNotes);
       displayNotesContaniner();
       chrome.browserAction.setBadgeBackgroundColor({ color: "green" });
       chrome.browserAction.setBadgeText({ text: "*" });
@@ -41,26 +45,32 @@ chrome.tabs.query({ active: true }, function (tabs) {
     if (showCheckBox.checked === true) {
       noNotes.style.display = "block";
       hideDisplayNotes();
-      SiteName.style.display = "block";
+      siteName.style.display = "block";
       showAllNotesContainer();
       var urlKeys = [];
       for (let key in localStorage) {
         urlKeys.push(key);
       }
-      var currentOpenedSite = new URL(currentUrl);
+      var currentOpenedSite = new URL(storageKey);
       var currentHostName = currentOpenedSite.hostname;
-      SiteName.innerText = currentHostName;
+      siteName.innerText = currentHostName;
+
       for (let i = 0; i < urlKeys.length; i++) {
-        var tempUrl = new URL(urlKeys[i]);
-        var tempHostName = tempUrl.hostname;
-        var tempDispUrl = tempUrl.href;
-        var pageId = tempDispUrl.substr(tempDispUrl.indexOf("/", 8) + 1);
+        const tempUrl = new URL(urlKeys[i]);
+        const tempHostName = tempUrl.hostname;
+
+        // remove protocol and hostname
+        const pageId = tempUrl.pathname;
+
         if (currentHostName == tempHostName) {
           noNotes.style.display = "none";
-          var pageNotes = JSON.parse(window.localStorage.getItem(tempUrl));
-          var noteTab = document.createElement("details");
+          const pageNotes = JSON.parse(window.localStorage.getItem(tempUrl));
+          const noteTab = document.createElement("details");
           noteTab.className = "all-notes-tab";
-          noteTab.innerHTML = `<summary class="summary-heading">${pageId}</summary><hr class="all-notes-hr"/><textarea rows="6" cols="30" spellcheck="false" readonly class="readonly-textarea" >${pageNotes}</textarea>`;
+          noteTab.innerHTML = `
+            <summary class="summary-heading">${pageId}</summary>
+            <textarea rows="6" cols="30" spellcheck="false" readonly class="readonly-textarea notepad" >${pageNotes}</textarea>
+          `;
           allNotesContainer.appendChild(noteTab);
         } else {
           console.log("not a match");
@@ -69,7 +79,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
     } else {
       displayNotesContaniner();
       hideNresetAllNotes();
-      SiteName.style.display = "none";
+      siteName.style.display = "none";
       noNotes.style.display = "none";
     }
   });
