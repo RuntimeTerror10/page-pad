@@ -39,6 +39,13 @@ Page-Pad is a Chrome extension for creating notes while browsing the web. Create
   <li>User is notified if notes are already created for the current webpage</li>
   
 </ul>
+<h2>Upcoming features</h2>
+<ul>
+<li>Rich text editor with formatting and image support</li>
+  <li>Voice based notes (Speech to text)</li>
+  <li>Quick note addition</li>
+  
+</ul>
 
 <!-- GETTING STARTED -->
 # Getting Started
