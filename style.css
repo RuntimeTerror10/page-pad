@@ -17,6 +17,7 @@
 body {
   width: 400px;
   max-height: 550px;
+  min-height: 550px;
   overflow-y: scroll;
   background: linear-gradient(
     60deg,
@@ -87,6 +88,8 @@ body {
 .show-all-notes {
   margin-top: 1rem;
   padding: 8px 0;
+  position: absolute;
+  bottom: 0;
 }
 .all-notes-container {
   display: none;
