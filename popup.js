@@ -46,7 +46,6 @@ chrome.tabs.query({ active: true }, function (tabs) {
       noNotes.style.display = "block";
       hideDisplayNotes();
       siteName.style.display = "block";
-      showAllNotesContainer();
       var urlKeys = [];
       for (let key in localStorage) {
         urlKeys.push(key);
@@ -63,6 +62,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
         const pageId = tempUrl.pathname;
 
         if (currentHostName == tempHostName) {
+          showAllNotesContainer();
           noNotes.style.display = "none";
           const pageNotes = JSON.parse(window.localStorage.getItem(tempUrl));
           const noteTab = document.createElement("details");
