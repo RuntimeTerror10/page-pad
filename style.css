@@ -63,19 +63,12 @@ body {
   display: none;
   margin-top: 10px;
   padding-top: 12px;
-  border-radius: 8px;
   overflow: hidden;
-  background: linear-gradient(
-    180deg,
-    var(--color-note-bg) 10px,
-    red 10px,
-    red 11px,
-    var(--color-note-bg) 11px
-  );
 }
 .text-box {
   border: none;
   width: 100%;
+  border-radius: 8px;
 }
 .show-notes-checkbox {
   background-color: #eee;
