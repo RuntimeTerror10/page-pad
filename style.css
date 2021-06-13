@@ -1,7 +1,7 @@
 :root {
-  --color-app-bg-1: rgb(94 154 127);
-  --color-app-bg-2: rgb(66 178 212);
-  --color-note-bg: rgb(254 246 158);
+  --color-app-bg-1: rgb(74, 128, 104);
+  --color-app-bg-2: rgb(66, 178, 212);
+  --color-note-bg: rgb(254, 246, 158);
   --note-gradient: repeating-linear-gradient(
     to bottom,
     transparent,
@@ -144,4 +144,9 @@ details[open] summary ~ * {
   display: none;
   margin-top: 200px;
   text-align: center;
+  font-size: 1.3rem;
+}
+.title-image {
+  width: 10%;
+  margin: auto 5px;
 }
