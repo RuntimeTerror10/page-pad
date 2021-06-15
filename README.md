@@ -21,7 +21,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-# About Web-Notes
+# About Page-pad
 
 
 Page-Pad is a Chrome extension for creating notes while browsing the web. Create notes instantly for individual webpages which are fully editable.
