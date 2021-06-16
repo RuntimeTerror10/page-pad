@@ -9,7 +9,7 @@
     <img src="/img/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h1 align="center">Page-Pad</h1>
+  <h1 align="center">Page Pad</h1>
 
   <p align="center">
    Create notes instantly for webpages while browsing the web
@@ -24,7 +24,7 @@
 # About Page-pad
 
 
-Page-Pad is a Chrome extension for creating notes while browsing the web. Create notes instantly for individual webpages which are fully editable.
+Page Pad is a Chrome extension for creating notes while browsing the web. Create notes instantly for individual webpages which are fully editable.
 <br />
 <img src="/img/page-pad-use.png"/>
 
