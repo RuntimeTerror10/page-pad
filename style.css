@@ -122,7 +122,9 @@ body {
 details[open] summary ~ * {
   animation: sweep 0.25s ease-in-out;
 }
-
+::-webkit-scrollbar {
+  display: none;
+}
 @keyframes sweep {
   0% {
     opacity: 0;
