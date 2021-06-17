@@ -6,22 +6,22 @@ const allNotesContainer = document.querySelector(".all-notes-container");
 const popUpBody = document.querySelector("body");
 const siteName = document.querySelector(".site-name");
 const noNotes = document.querySelector(".no-notes");
+var label = document.querySelector(".notes-label");
 
 chrome.tabs.query({ active: true }, function (tabs) {
   const currentUrl = tabs[0].url;
-  const url = new URL(currentUrl);
-  const storageKey = `${url.origin}${url.pathname}`;
 
-  const fetchedItem = localStorage.getItem(storageKey);
-
-  if (fetchedItem === null) {
+  label.innerHTML = `Show all notes for <i><b>${displayHostName(
+    currentUrl
+  )}</b></i>`;
+  if (localStorage.getItem(currentUrl) === null) {
     displayNotesContaniner();
     hideNresetAllNotes();
     textBox.focus();
   } else {
     displayNotesContaniner();
     textBox.focus();
-    let str = JSON.parse(fetchedItem);
+    let str = JSON.parse(localStorage.getItem(currentUrl));
     textBox.value = str;
   }
 
@@ -30,12 +30,12 @@ chrome.tabs.query({ active: true }, function (tabs) {
 
     if (userNotes.length == 0) {
       // if user clears all the notes
-      removeNotes(storageKey);
+      removeNotes(currentUrl);
       chrome.browserAction.setBadgeText({ text: "" });
     }
     if (userNotes.length >= 1) {
       //if user has added some notes
-      storeNotes(storageKey, userNotes);
+      storeNotes(currentUrl, userNotes);
       displayNotesContaniner();
       chrome.browserAction.setBadgeBackgroundColor({ color: "green" });
       chrome.browserAction.setBadgeText({ text: "*" });
@@ -50,7 +50,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
       for (let key in localStorage) {
         urlKeys.push(key);
       }
-      var currentOpenedSite = new URL(storageKey);
+      var currentOpenedSite = new URL(currentUrl);
       var currentHostName = currentOpenedSite.hostname;
       siteName.innerText = currentHostName;
 
@@ -59,8 +59,15 @@ chrome.tabs.query({ active: true }, function (tabs) {
         const tempHostName = tempUrl.hostname;
 
         // remove protocol and hostname
-        const pageId = tempUrl.pathname;
-
+        var pageId = "";
+        if (
+          tempHostName == "www.youtube.com" ||
+          tempHostName == "www.github.com"
+        ) {
+          pageId = tempUrl.href.replace(/(^\w+:|^)\/\//, "");
+        } else {
+          pageId = tempUrl.pathname;
+        }
         if (currentHostName == tempHostName) {
           showAllNotesContainer();
           noNotes.style.display = "none";
@@ -118,4 +125,19 @@ function hideNresetAllNotes() {
 
 function showAllNotesContainer() {
   allNotesContainer.style.display = "block";
+}
+
+function displayHostName(url) {
+  var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+  if (
+    match != null &&
+    match.length > 2 &&
+    typeof match[2] === "string" &&
+    match[2].length > 0
+  ) {
+    var hostname = match[2].split(".");
+    return hostname[0];
+  } else {
+    return null;
+  }
 }
