@@ -9,7 +9,8 @@ const noNotes = document.querySelector(".no-notes");
 var label = document.querySelector(".notes-label");
 
 chrome.tabs.query({ active: true }, function (tabs) {
-  const currentUrl = tabs[0].url;
+  var currentUrl = tabs[0].url;
+  var currentTitle = tabs[0].title;
 
   label.innerHTML = `Show all notes for <i><b>${displayHostName(
     currentUrl
@@ -21,12 +22,16 @@ chrome.tabs.query({ active: true }, function (tabs) {
   } else {
     displayNotesContaniner();
     textBox.focus();
-    let str = JSON.parse(localStorage.getItem(currentUrl));
-    textBox.value = str;
+    let getObj = JSON.parse(localStorage.getItem(currentUrl));
+    textBox.value = getObj.notes;
+    console.log(getObj.title);
   }
 
   textBox.addEventListener("blur", () => {
     var userNotes = textBox.value;
+    var userTabTitle = currentTitle;
+
+    const userObj = { title: userTabTitle, notes: userNotes };
 
     if (userNotes.length == 0) {
       // if user clears all the notes
@@ -35,12 +40,13 @@ chrome.tabs.query({ active: true }, function (tabs) {
     }
     if (userNotes.length >= 1) {
       //if user has added some notes
-      storeNotes(currentUrl, userNotes);
+      storeNotes(currentUrl, userObj);
       displayNotesContaniner();
       chrome.browserAction.setBadgeBackgroundColor({ color: "green" });
       chrome.browserAction.setBadgeText({ text: "*" });
     }
   });
+
   showCheckBox.addEventListener("change", () => {
     if (showCheckBox.checked === true) {
       noNotes.style.display = "block";
@@ -59,20 +65,15 @@ chrome.tabs.query({ active: true }, function (tabs) {
         const tempHostName = tempUrl.hostname;
 
         // remove protocol and hostname
-        var pageId = "";
-        if (
-          tempHostName == "www.youtube.com" ||
-          tempHostName == "www.github.com"
-        ) {
-          pageId = tempUrl.href.replace(/(^\w+:|^)\/\//, "");
-        } else {
-          pageId = tempUrl.pathname;
-        }
         if (currentHostName == tempHostName) {
           showAllNotesContainer();
           noNotes.style.display = "none";
-          const pageNotes = JSON.parse(window.localStorage.getItem(tempUrl));
+
+          const fetchedPara = JSON.parse(window.localStorage.getItem(tempUrl));
+          const pageNotes = fetchedPara.notes;
+          const pageId = fetchedPara.title;
           const noteTab = document.createElement("details");
+
           noteTab.className = "all-notes-tab";
           noteTab.innerHTML = `
             <summary class="summary-heading">${pageId}</summary>
@@ -106,8 +107,8 @@ popUpBody.addEventListener("blur", () => {
   }
 });
 
-function storeNotes(url, notes) {
-  window.localStorage.setItem(url, JSON.stringify(notes));
+function storeNotes(url, userPara) {
+  window.localStorage.setItem(url, JSON.stringify(userPara));
 }
 function removeNotes(url) {
   window.localStorage.removeItem(url);
