@@ -6,15 +6,11 @@ const allNotesContainer = document.querySelector(".all-notes-container");
 const popUpBody = document.querySelector("body");
 const siteName = document.querySelector(".site-name");
 const noNotes = document.querySelector(".no-notes");
-var label = document.querySelector(".notes-label");
 
 chrome.tabs.query({ active: true }, function (tabs) {
   var currentUrl = tabs[0].url;
   var currentTitle = tabs[0].title;
 
-  label.innerHTML = `Show all notes for <i><b>${displayHostName(
-    currentUrl
-  )}</b></i>`;
   if (localStorage.getItem(currentUrl) === null) {
     displayNotesContaniner();
     hideNresetAllNotes();
@@ -69,9 +65,9 @@ chrome.tabs.query({ active: true }, function (tabs) {
           showAllNotesContainer();
           noNotes.style.display = "none";
 
-          const fetchedPara = JSON.parse(window.localStorage.getItem(tempUrl));
-          const pageNotes = fetchedPara.notes;
-          const pageId = fetchedPara.title;
+          const fetchedObj = JSON.parse(window.localStorage.getItem(tempUrl));
+          const pageNotes = fetchedObj.notes;
+          const pageId = fetchedObj.title;
           const noteTab = document.createElement("details");
 
           noteTab.className = "all-notes-tab";
@@ -126,19 +122,4 @@ function hideNresetAllNotes() {
 
 function showAllNotesContainer() {
   allNotesContainer.style.display = "block";
-}
-
-function displayHostName(url) {
-  var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
-  if (
-    match != null &&
-    match.length > 2 &&
-    typeof match[2] === "string" &&
-    match[2].length > 0
-  ) {
-    var hostname = match[2].split(".");
-    return hostname[0];
-  } else {
-    return null;
-  }
 }
