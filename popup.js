@@ -6,6 +6,9 @@ const allNotesContainer = document.querySelector(".all-notes-container");
 const popUpBody = document.querySelector("body");
 const siteName = document.querySelector(".site-name");
 const noNotes = document.querySelector(".no-notes");
+const allNotesPagelink = document.querySelector(".all-web-notes");
+
+allNotesPagelink.href = `chrome-extension://${chrome.runtime.id}/index.html`;
 
 chrome.tabs.query({ active: true }, function (tabs) {
   var currentUrl = tabs[0].url;
