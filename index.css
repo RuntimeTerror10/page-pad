@@ -1,5 +1,11 @@
+body {
+  background: rgba(235, 235, 170, 0.845);
+}
 .all-notes-tab {
-  background: rgb(0, 205, 162);
+  background: rgb(138, 215, 187);
+}
+.summary-heading {
+  font-size: 1.4rem;
 }
 .title-container {
   display: flex;
@@ -36,4 +42,14 @@
 }
 .site-notes {
   margin-bottom: 55px;
+}
+.visit-link {
+  text-decoration: none;
+  color: #191919;
+  font-weight: bold;
+}
+.link-wrap {
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 10px 0;
 }
