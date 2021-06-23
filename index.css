@@ -1,15 +1,6 @@
-:root {
-  --color-app-bg-1: rgb(94, 182, 142, 0.6);
-  --color-app-bg-2: rgb(66, 178, 212);
-  --color-note-bg: rgb(254, 246, 158);
-  --note-gradient: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 27px,
-    #33d 28px
-  );
+.all-notes-tab {
+  background: rgb(0, 205, 162);
 }
-
 .title-container {
   display: flex;
   justify-content: center;
@@ -34,62 +25,11 @@
 .all-notes-container {
   margin-top: 150px;
 }
-.summary-heading {
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 8px;
-  overflow-wrap: break-word;
-}
-.all-notes-tab {
-  margin-bottom: 20px;
-  background: var(--color-app-bg-1);
-  border-radius: 0;
-  transition: height 0.2s ease-in-out;
-  border-left: 5px solid rgba(0 0 0 / 20%);
-  color: #333;
-  box-shadow: 0 3px 10px 0 rgb(0 0 0 / 7%);
-  border-radius: 10px 20px 10px 10px;
-  transition: height 0.2s ease-in-out;
-  max-width: 750px;
-}
-.all-notes-hr {
-  margin: 15px 0;
-  border-color: #191919;
-  opacity: 0.4;
-}
-.readonly-textarea {
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0 auto;
-  border: none;
-}
-details[open] summary ~ * {
-  animation: sweep 0.25s ease-in-out;
-}
-.notepad {
-  background: var(--color-note-bg) var(--note-gradient);
-  font-size: 1.1rem;
-  resize: none;
-  line-height: 28px;
-  padding: 2.5px 5px;
-  background-attachment: local;
-  background-position: 0 -3px;
-  font-family: inherit;
-}
+
 .align-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-@keyframes sweep {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 .site-notes h1 {
   text-align: center;
