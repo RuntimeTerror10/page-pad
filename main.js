@@ -61,18 +61,20 @@ searchBar.addEventListener("keyup", () => {
       var fetchedObj = JSON.parse(localStorage.getItem(urlKeys[k]));
       var displayTitle = fetchedObj.title;
       var objTitle = fetchedObj.title.toLowerCase();
+      var objNote = fetchedObj.notes;
 
-      var compareResult = isSubstring(userInput, objTitle);
-      if (compareResult == -1) {
+      var compareTitle = isSubstring(userInput, objTitle);
+      var compareNotes = isSubstring(userInput, objNote);
+      if (compareTitle == -1 && compareNotes == -1) {
         const e = 0;
       } else {
-        var filterNote = fetchedObj.notes;
         const noteTab = document.createElement("details");
 
         noteTab.className = "all-notes-tab";
         noteTab.innerHTML = `
             <summary class="summary-heading">${displayTitle}</summary>
-            <div class="readonly">${filterNote}</div>`;
+            <div class="readonly">${objNote}</div>
+             <div class="link-wrap"><a class="visit-link" target="_blank" href=${urlKeys[k]}>VISIT THIS PAGE</a></div>`;
 
         filterContainer.appendChild(noteTab);
       }
