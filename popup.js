@@ -7,10 +7,11 @@ const popUpBody = document.querySelector("body");
 const siteName = document.querySelector(".site-name");
 const noNotes = document.querySelector(".no-notes");
 const allNotesPagelink = document.querySelector(".all-web-notes");
+const toolbar = document.querySelector("#trix-toolbar");
 
 allNotesPagelink.href = `chrome-extension://${chrome.runtime.id}/index.html`;
 
-chrome.tabs.query({ active: true }, function (tabs) {
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   var currentUrl = tabs[0].url;
   var currentTitle = tabs[0].title;
 
@@ -48,6 +49,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
 
   showCheckBox.addEventListener("change", () => {
     if (showCheckBox.checked === true) {
+      toolbar.style.display = "none";
       noNotes.style.display = "block";
       hideDisplayNotes();
       siteName.style.display = "block";
@@ -76,7 +78,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
           noteTab.className = "all-notes-tab";
           noteTab.innerHTML = `
             <summary class="summary-heading">${pageId}</summary>
-            <textarea rows="6" cols="30" spellcheck="false" readonly class="readonly-textarea notepad" >${pageNotes}</textarea>
+            <div class="readonly" >${pageNotes}</div>
           `;
           allNotesContainer.appendChild(noteTab);
         } else {
@@ -88,6 +90,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
       hideNresetAllNotes();
       siteName.style.display = "none";
       noNotes.style.display = "none";
+      toolbar.style.display = "block";
     }
   });
 });
