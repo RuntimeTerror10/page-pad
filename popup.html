@@ -4,46 +4,59 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="comm.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="trix.css" />
+    <script type="text/javascript" src="trix.js"></script>
   </head>
   <body>
-    <div class="main-title-wrap">
-      <img class="title-image" src="/img/logo.png" alt="" />
-      <h1 class="main-title">Page Pad</h1>
+    <div class="navbar">
+      <div class="main-title-wrap">
+        <img class="title-image" src="/img/logo.png" alt="" />
+        <h1 class="main-title">Page Pad</h1>
+      </div>
+      <div class="menu-btn">
+        <div class="menu-btn-burger"></div>
+      </div>
     </div>
     <h2 class="site-name"></h2>
     <p class="no-notes">No notes added for any page of this website.</p>
+
+    <trix-toolbar class="toolbar" id="trix-toolbar"> </trix-toolbar>
+
     <div class="js-notes-container notes-container">
-      <textarea
-        class="text-box notepad"
-        name="notesArea"
+      <trix-editor
+        placeholder="Add notes for this page here..."
         id="notes"
-        cols="30"
-        rows="15"
+        toolbar="trix-toolbar"
+        class="notepad text-box"
         spellcheck="false"
-        placeholder="Add notes for this page here.."
-      ></textarea>
+      ></trix-editor>
+      <input type="hidden" id="input_id" />
     </div>
     <div class="all-notes-container"></div>
     <div class="js-show-all-notes show-all-notes">
-      <input
-        type="checkbox"
-        id="all-notes"
-        class="js-show-notes-checkbox show-notes-checkbox"
-        name="allNotes"
-      />
-      <label for="all-notes" class="notes-label"
-        >Show all notes for this website only</label
-      >
+      <div class="ip">
+        <input
+          type="checkbox"
+          id="all-notes"
+          class="js-show-notes-checkbox show-notes-checkbox"
+          name="allNotes"
+        />
+        <label for="all-notes" class="notes-label"
+          >All notes for this website</label
+        >
+      </div>
       <a
         class="all-web-notes"
         href="chrome-extension://lndeiggncdnpihnkfkpameehiikppadg/index.html"
         target="_blank"
-        >Show all notes</a
+        >All notes</a
       >
     </div>
 
     <script src="popup.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
