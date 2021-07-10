@@ -14,7 +14,7 @@
 }
 
 .notepad {
-  background: var(--color-note-bg) var(--note-gradient);
+  background: var(--color-note-bg);
   font-size: 1.1rem;
   resize: none;
   line-height: 28px;
@@ -48,6 +48,7 @@
   box-shadow: 0 3px 10px 0 rgb(0 0 0 / 7%);
   border-radius: 10px 20px 10px 10px;
   transition: height 0.2s ease-in-out;
+  overflow: hidden;
 }
 .all-notes-hr {
   margin: 15px 0;
@@ -75,4 +76,14 @@ details[open] summary ~ * {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.readonly {
+  margin: 0 auto;
+  border: none;
+  width: 99%;
+  background: rgb(254, 246, 158);
+  font-size: 1.1rem;
+  min-height: 140px;
+  max-height: 140px;
+  overflow: auto;
 }
