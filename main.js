@@ -1,6 +1,7 @@
 const container = document.querySelector(".all-notes-container");
 const searchBar = document.querySelector(".search-input");
 const filterContainer = document.querySelector(".filter-notes-container");
+const websiteList = document.querySelector(".website-list");
 
 var urlKeys = [];
 for (let i = 0; i < localStorage.length; i++) {
@@ -24,10 +25,16 @@ for (let x = 0; x < urlKeys.length; x++) {
     urlMap.set(key, arr);
   }
 }
+console.log(urlMap);
 
 urlMap.forEach(function (value, key) {
+  var websiteListItem = document.createElement("li");
+  websiteListItem.className = "list-item";
+  websiteListItem.innerHTML = `<button class="website-btn">${key}</button>`;
+  websiteList.appendChild(websiteListItem);
+
   const subContainer = document.createElement("div");
-  subContainer.innerHTML = `<h1 style ="color:#333">${key}</h1>`;
+  subContainer.innerHTML = `<h1 style ="color:#333;font-size:1.7rem;">${key}</h1>`;
   subContainer.className = "site-notes";
   for (let i = 0; i < value.length; i++) {
     const userObj = JSON.parse(localStorage.getItem(value[i]));
@@ -45,8 +52,25 @@ urlMap.forEach(function (value, key) {
   }
   container.appendChild(subContainer);
 });
+document
+  .querySelectorAll(".list-item")
+  .forEach((item) =>
+    item.addEventListener(
+      "click",
+      () => (
+        (container.style.display = "none"),
+        clearResult(),
+        showNotesOnClick(item.innerText)
+      )
+    )
+  );
 
+searchBar.addEventListener("focus", () => {
+  container.style.display = "block";
+  clearResult();
+});
 /* notes searching*/
+
 searchBar.addEventListener("keyup", () => {
   if (searchBar.value.length === 0) {
     showAllNotes();
@@ -104,4 +128,20 @@ function isSubstring(s1, s2) {
   }
 
   return -1;
+}
+function showNotesOnClick(siteTitle) {
+  var fetchedUrlArr = urlMap.get(siteTitle);
+  filterContainer.innerHTML = `<h1 class="site-title">${siteTitle}</h1>`;
+  for (let i = 0; i < fetchedUrlArr.length; i++) {
+    var urlObject = JSON.parse(localStorage.getItem(fetchedUrlArr[i]));
+    const noteTab = document.createElement("details");
+
+    noteTab.className = "all-notes-tab";
+    noteTab.innerHTML = `
+            <summary class="summary-heading">${urlObject.title}</summary>
+            <div class="readonly">${urlObject.notes}</div>
+             <div class="link-wrap"><a class="visit-link" target="_blank" href=${fetchedUrlArr[i]}>VISIT THIS PAGE</a></div>`;
+
+    filterContainer.appendChild(noteTab);
+  }
 }
