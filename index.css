@@ -121,11 +121,14 @@ body {
 .website-list {
   list-style-type: none;
   margin-top: 50px;
+  padding: 0;
 }
 .website-list li {
-  margin: 25px 0;
+  margin: 20px 0;
   text-align: center;
-  margin-right: 40px;
+}
+.list-item {
+  padding: 10px 0;
 }
 .website-btn {
   background: transparent;
@@ -137,7 +140,7 @@ body {
 }
 .website-btn:hover,
 .active {
-  color: rgba(254, 246, 158, 0.856);
+  color: rgba(254, 246, 158, 0.945);
 }
 .site-title {
   color: #333;
@@ -145,5 +148,5 @@ body {
   font-size: 1.7rem;
 }
 .website-btn:active {
-  color: rgba(254, 246, 158, 0.856);
+  color: rgba(254, 246, 158, 0.945);
 }
