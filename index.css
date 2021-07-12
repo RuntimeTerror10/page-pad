@@ -2,13 +2,14 @@ body {
   background: rgba(235, 235, 170, 0.845);
 }
 .all-notes-tab {
-  background: rgb(138, 215, 187);
+  background: rgb(41, 61, 81);
   margin-top: 30px;
   max-width: 700px;
   min-width: 700px;
 }
 .summary-heading {
   font-size: 1.4rem;
+  color: rgb(240, 240, 240);
 }
 .title-container {
   display: flex;
@@ -31,14 +32,6 @@ body {
   color: white;
   font-size: 2rem;
 }
-.all-notes-container {
-  margin-top: 150px;
-}
-.align-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .site-notes h1 {
   text-align: center;
 }
@@ -47,7 +40,7 @@ body {
 }
 .visit-link {
   text-decoration: none;
-  color: #191919;
+  color: rgb(240, 240, 240);
   font-weight: bold;
 }
 .link-wrap {
@@ -115,7 +108,7 @@ body {
 }
 .websites-heading {
   text-align: center;
-  color: #fff;
+  color: rgb(240, 240, 240);
   font-size: 1.8rem;
 }
 .website-list {
@@ -134,11 +127,14 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #fff;
+  color: rgb(240, 240, 240);
+
   font-size: 1.4rem;
   transition: 0.15s ease-in-out;
 }
-.website-btn:hover,
+.website-btn:hover {
+  color: rgba(254, 246, 158, 0.945);
+}
 .active {
   color: rgba(254, 246, 158, 0.945);
 }
