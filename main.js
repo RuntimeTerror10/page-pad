@@ -65,10 +65,6 @@ document
     )
   );
 
-searchBar.addEventListener("focus", () => {
-  container.style.display = "block";
-  clearResult();
-});
 /* notes searching*/
 
 searchBar.addEventListener("keyup", () => {
@@ -80,29 +76,16 @@ searchBar.addEventListener("keyup", () => {
     hideAllNotes();
     var userInput = searchBar.value.toLowerCase();
     clearResult();
-
-    for (let k = 0; k < urlKeys.length; k++) {
-      var fetchedObj = JSON.parse(localStorage.getItem(urlKeys[k]));
-      var displayTitle = fetchedObj.title;
-      var objTitle = fetchedObj.title.toLowerCase();
-      var objNote = fetchedObj.notes;
-
-      var compareTitle = isSubstring(userInput, objTitle);
-      var compareNotes = isSubstring(userInput, objNote);
-      if (compareTitle == -1 && compareNotes == -1) {
-        const e = 0;
-      } else {
-        const noteTab = document.createElement("details");
-
-        noteTab.className = "all-notes-tab";
-        noteTab.innerHTML = `
-            <summary class="summary-heading">${displayTitle}</summary>
-            <div class="readonly">${objNote}</div>
-             <div class="link-wrap"><a class="visit-link" target="_blank" href=${urlKeys[k]}>VISIT THIS PAGE</a></div>`;
-
-        filterContainer.appendChild(noteTab);
-      }
-    }
+    searchResult(userInput);
+  }
+});
+searchBar.addEventListener("focus", () => {
+  if (searchBar.value.length === 0) {
+    container.style.display = "block";
+    clearResult();
+  } else {
+    clearResult();
+    searchResult(searchBar.value);
   }
 });
 
@@ -143,5 +126,29 @@ function showNotesOnClick(siteTitle) {
              <div class="link-wrap"><a class="visit-link" target="_blank" href=${fetchedUrlArr[i]}>VISIT THIS PAGE</a></div>`;
 
     filterContainer.appendChild(noteTab);
+  }
+}
+function searchResult(userInput) {
+  for (let k = 0; k < urlKeys.length; k++) {
+    var fetchedObj = JSON.parse(localStorage.getItem(urlKeys[k]));
+    var displayTitle = fetchedObj.title;
+    var objTitle = fetchedObj.title.toLowerCase();
+    var objNote = fetchedObj.notes;
+
+    var compareTitle = isSubstring(userInput, objTitle);
+    var compareNotes = isSubstring(userInput, objNote);
+    if (compareTitle == -1 && compareNotes == -1) {
+      const e = 0;
+    } else {
+      const noteTab = document.createElement("details");
+
+      noteTab.className = "all-notes-tab";
+      noteTab.innerHTML = `
+            <summary class="summary-heading">${displayTitle}</summary>
+            <div class="readonly">${objNote}</div>
+             <div class="link-wrap"><a class="visit-link" target="_blank" href=${urlKeys[k]}>VISIT THIS PAGE</a></div>`;
+
+      filterContainer.appendChild(noteTab);
+    }
   }
 }
