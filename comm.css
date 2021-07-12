@@ -78,6 +78,7 @@ details[open] summary ~ * {
   }
 }
 .readonly {
+  padding: 5px;
   margin: 0 auto;
   border: none;
   width: 99%;
