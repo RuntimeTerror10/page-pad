@@ -1,4 +1,3 @@
-const container = document.querySelector(".all-notes-container");
 const searchBar = document.querySelector(".search-input");
 const filterContainer = document.querySelector(".filter-notes-container");
 const websiteList = document.querySelector(".website-list");
@@ -32,102 +31,128 @@ urlMap.forEach(function (value, key) {
   websiteListItem.className = "list-item";
   websiteListItem.innerHTML = `<button class="website-btn">${key}</button>`;
   websiteList.appendChild(websiteListItem);
-
-  const subContainer = document.createElement("div");
-  subContainer.innerHTML = `<h1 style ="color:#333;font-size:1.7rem;">${key}</h1>`;
-  subContainer.className = "site-notes";
-  for (let i = 0; i < value.length; i++) {
-    const userObj = JSON.parse(localStorage.getItem(value[i]));
-    var tabTitle = userObj.title;
-    var tabNote = userObj.notes;
-    const noteTab = document.createElement("details");
-
-    noteTab.className = "all-notes-tab";
-    noteTab.innerHTML = `
-            <summary class="summary-heading">${tabTitle}</summary>
-            <div class="readonly">${tabNote}</div>
-            <div class="link-wrap"><a class="visit-link" target="_blank" href=${value[i]}>VISIT THIS PAGE</a></div>
-          `;
-    subContainer.appendChild(noteTab);
-  }
-  container.appendChild(subContainer);
 });
+
+/*setting color for first list item*/
+
+const sitelist = document.querySelectorAll(".website-btn");
+var firstItem = sitelist[0].innerText;
+sitelist[0].classList.add("active");
+
+/*displaying notes of first list item*/
+
+filterContainer.innerHTML = `<h1 class="site-title">${firstItem}</h1>`;
+var siteArr = urlMap.get(firstItem);
+for (let i = 0; i < siteArr.length; i++) {
+  var obj = JSON.parse(localStorage.getItem(siteArr[i]));
+  var notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
+  filterContainer.appendChild(notetab);
+}
+
 document
   .querySelectorAll(".list-item")
   .forEach((item) =>
     item.addEventListener(
       "click",
-      () => (
-        (container.style.display = "none"),
-        clearResult(),
-        showNotesOnClick(item.innerText)
-      )
+      () => (clearResult(), showNotesOnClick(item.innerText))
     )
   );
+
+/*changing color of active domain from list*/
+
+var btnContainer = document.querySelector(".website-list");
+
+var btns = btnContainer.getElementsByClassName("website-btn");
+
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function () {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
 
 /* notes searching*/
 
 searchBar.addEventListener("keyup", () => {
   if (searchBar.value.length === 0) {
-    showAllNotes();
     clearResult();
+    showAllNotes();
   }
   if (searchBar.value.length > 0) {
-    hideAllNotes();
     var userInput = searchBar.value.toLowerCase();
     clearResult();
     searchResult(userInput);
   }
 });
+
 searchBar.addEventListener("focus", () => {
   if (searchBar.value.length === 0) {
-    container.style.display = "block";
     clearResult();
+    showAllNotes();
   } else {
     clearResult();
     searchResult(searchBar.value);
   }
 });
 
-function showAllNotes() {
-  container.style.display = "block";
-}
-
-function hideAllNotes() {
-  container.style.display = "none";
-}
 function clearResult() {
   filterContainer.innerHTML = "";
 }
-function isSubstring(s1, s2) {
-  var query = s1.length;
-  var string = s2.length;
 
-  for (var i = 0; i <= string - query; i++) {
-    var j;
-    for (j = 0; j < query; j++) if (s2[i + j] != s1[j]) break;
+/* function to display notes tab inside container*/
 
-    if (j == query) return i;
-  }
-
-  return -1;
+function displayNotesInDOM(tabTitle, tabNote, url) {
+  const noteTab = document.createElement("details");
+  noteTab.className = "all-notes-tab";
+  noteTab.innerHTML = `
+            <summary class="summary-heading">${tabTitle}</summary>
+            <div class="readonly">${tabNote}</div>
+            <div class="link-wrap"><a class="visit-link" target="_blank" href=${url}>VISIT THIS PAGE</a></div>
+          `;
+  return noteTab;
 }
+
+/* function to show all notes created by user*/
+
+function showAllNotes() {
+  urlMap.forEach(function (value, key) {
+    const subContainer = document.createElement("div");
+    subContainer.innerHTML = `<h1 style ="color:rgb(41, 61, 81);font-size:1.7rem;">${key}</h1>`;
+    subContainer.className = "site-notes";
+    for (let i = 0; i < value.length; i++) {
+      const userObj = JSON.parse(localStorage.getItem(value[i]));
+      var tabTitle = userObj.title;
+      var tabNote = userObj.notes;
+      var currenturl = value[i];
+      var noteTab = displayNotesInDOM(tabTitle, tabNote, currenturl);
+
+      subContainer.appendChild(noteTab);
+    }
+    filterContainer.appendChild(subContainer);
+  });
+}
+
+/*function to show filtered notes of particular domain*/
+
 function showNotesOnClick(siteTitle) {
   var fetchedUrlArr = urlMap.get(siteTitle);
   filterContainer.innerHTML = `<h1 class="site-title">${siteTitle}</h1>`;
+
   for (let i = 0; i < fetchedUrlArr.length; i++) {
     var urlObject = JSON.parse(localStorage.getItem(fetchedUrlArr[i]));
-    const noteTab = document.createElement("details");
-
-    noteTab.className = "all-notes-tab";
-    noteTab.innerHTML = `
-            <summary class="summary-heading">${urlObject.title}</summary>
-            <div class="readonly">${urlObject.notes}</div>
-             <div class="link-wrap"><a class="visit-link" target="_blank" href=${fetchedUrlArr[i]}>VISIT THIS PAGE</a></div>`;
+    var noteTab = displayNotesInDOM(
+      urlObject.title,
+      urlObject.notes,
+      fetchedUrlArr[i]
+    );
 
     filterContainer.appendChild(noteTab);
   }
 }
+
+/*function to for searching results from local storage*/
+
 function searchResult(userInput) {
   for (let k = 0; k < urlKeys.length; k++) {
     var fetchedObj = JSON.parse(localStorage.getItem(urlKeys[k]));
@@ -140,15 +165,23 @@ function searchResult(userInput) {
     if (compareTitle == -1 && compareNotes == -1) {
       const e = 0;
     } else {
-      const noteTab = document.createElement("details");
-
-      noteTab.className = "all-notes-tab";
-      noteTab.innerHTML = `
-            <summary class="summary-heading">${displayTitle}</summary>
-            <div class="readonly">${objNote}</div>
-             <div class="link-wrap"><a class="visit-link" target="_blank" href=${urlKeys[k]}>VISIT THIS PAGE</a></div>`;
-
+      var noteTab = displayNotesInDOM(displayTitle, objNote, urlKeys[k]);
       filterContainer.appendChild(noteTab);
     }
   }
+}
+/* function to check is search query matches any page title or notes*/
+
+function isSubstring(s1, s2) {
+  var query = s1.length;
+  var string = s2.length;
+
+  for (var i = 0; i <= string - query; i++) {
+    var j;
+    for (j = 0; j < query; j++) if (s2[i + j] != s1[j]) break;
+
+    if (j == query) return i;
+  }
+
+  return -1;
 }
