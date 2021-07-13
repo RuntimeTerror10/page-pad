@@ -55,7 +55,10 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       siteName.style.display = "block";
       var urlKeys = [];
       for (let key in localStorage) {
-        urlKeys.push(key);
+        var obj = JSON.parse(localStorage.getItem(key));
+        if (typeof obj === "object") {
+          urlKeys.push(key);
+        }
       }
       var currentOpenedSite = new URL(currentUrl);
       var currentHostName = currentOpenedSite.hostname;
