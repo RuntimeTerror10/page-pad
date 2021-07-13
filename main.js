@@ -6,7 +6,12 @@ const websiteList = document.querySelector(".website-list");
 var urlKeys = [];
 for (let i = 0; i < localStorage.length; i++) {
   let key = localStorage.key(i);
-  urlKeys.push(key);
+  var obj = JSON.parse(localStorage.getItem(key));
+  if (typeof obj === "object") {
+    urlKeys.push(key);
+  } else {
+    console.log("noob");
+  }
 }
 
 var urlMap = new Map();
