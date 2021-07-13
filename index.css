@@ -93,6 +93,11 @@ body {
   justify-content: center;
   align-items: center;
 }
+.align-all-notes-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .filter-notes-container {
   margin-top: 150px;
 }
@@ -102,7 +107,7 @@ body {
   top: 120px;
   bottom: 0;
   background: rgb(41, 61, 81);
-  width: 290px;
+  width: 300px;
   box-shadow: 3px 3px 5px rgb(41, 61, 81);
   overflow-y: scroll;
 }
@@ -137,6 +142,10 @@ body {
 }
 .active {
   color: rgba(254, 246, 158, 0.945);
+  text-decoration-color: rgb(254, 246, 158);
+  text-decoration: underline;
+  font-weight: bold;
+  transition: 0.2s ease-in-out;
 }
 .site-title {
   color: #333;
