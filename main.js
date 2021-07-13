@@ -9,8 +9,6 @@ for (let i = 0; i < localStorage.length; i++) {
   var obj = JSON.parse(localStorage.getItem(key));
   if (typeof obj === "object") {
     urlKeys.push(key);
-  } else {
-    console.log("noob");
   }
 }
 
