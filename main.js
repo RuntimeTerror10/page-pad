@@ -1,3 +1,4 @@
+const container = document.querySelector(".all-notes-container");
 const searchBar = document.querySelector(".search-input");
 const filterContainer = document.querySelector(".filter-notes-container");
 const websiteList = document.querySelector(".website-list");
@@ -24,7 +25,8 @@ for (let x = 0; x < urlKeys.length; x++) {
     urlMap.set(key, arr);
   }
 }
-console.log(urlMap);
+container.style.display = "none";
+showAllNotes();
 
 urlMap.forEach(function (value, key) {
   var websiteListItem = document.createElement("li");
@@ -33,21 +35,7 @@ urlMap.forEach(function (value, key) {
   websiteList.appendChild(websiteListItem);
 });
 
-/*setting color for first list item*/
-
-const sitelist = document.querySelectorAll(".website-btn");
-var firstItem = sitelist[0].innerText;
-sitelist[0].classList.add("active");
-
-/*displaying notes of first list item*/
-
-filterContainer.innerHTML = `<h1 class="site-title">${firstItem}</h1>`;
-var siteArr = urlMap.get(firstItem);
-for (let i = 0; i < siteArr.length; i++) {
-  var obj = JSON.parse(localStorage.getItem(siteArr[i]));
-  var notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
-  filterContainer.appendChild(notetab);
-}
+highlighAndDisplayNotesOfFirstDomain();
 
 document
   .querySelectorAll(".list-item")
@@ -77,22 +65,31 @@ for (var i = 0; i < btns.length; i++) {
 searchBar.addEventListener("keyup", () => {
   if (searchBar.value.length === 0) {
     clearResult();
-    showAllNotes();
+    container.style.display = "block";
   }
   if (searchBar.value.length > 0) {
     var userInput = searchBar.value.toLowerCase();
     clearResult();
     searchResult(userInput);
+    container.style.display = "none";
   }
 });
 
 searchBar.addEventListener("focus", () => {
+  removeActiveDomainColor();
   if (searchBar.value.length === 0) {
     clearResult();
-    showAllNotes();
+    container.style.display = "block";
   } else {
     clearResult();
     searchResult(searchBar.value);
+    container.style.display = "none";
+  }
+});
+searchBar.addEventListener("blur", () => {
+  container.style.display = "none";
+  if (searchBar.value.length === 0) {
+    highlighAndDisplayNotesOfFirstDomain();
   }
 });
 
@@ -129,7 +126,7 @@ function showAllNotes() {
 
       subContainer.appendChild(noteTab);
     }
-    filterContainer.appendChild(subContainer);
+    container.appendChild(subContainer);
   });
 }
 
@@ -184,4 +181,34 @@ function isSubstring(s1, s2) {
   }
 
   return -1;
+}
+
+function hideAllNotes() {
+  container.style.display = "none";
+}
+function displayAllNotes() {
+  container.style.display = "block";
+}
+function highlighAndDisplayNotesOfFirstDomain() {
+  /*setting color for first list item*/
+
+  const sitelist = document.querySelectorAll(".website-btn");
+  var firstItem = sitelist[0].innerText;
+  sitelist[0].classList.add("active");
+
+  /*displaying notes of first list item*/
+
+  filterContainer.innerHTML = `<h1 class="site-title">${firstItem}</h1>`;
+  var siteArr = urlMap.get(firstItem);
+  for (let i = 0; i < siteArr.length; i++) {
+    var obj = JSON.parse(localStorage.getItem(siteArr[i]));
+    var notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
+    filterContainer.appendChild(notetab);
+  }
+}
+
+function removeActiveDomainColor() {
+  document
+    .querySelectorAll(".website-btn")
+    .forEach((item) => item.classList.remove("active"));
 }
