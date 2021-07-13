@@ -1,20 +1,13 @@
 :root {
-  --color-app-bg-1: rgb(74, 128, 104);
-  --color-app-bg-2: rgb(66, 178, 212);
+  --color-app-bg: rgb(41, 61, 81);
   --color-note-bg: rgb(254, 246, 158);
-  --note-gradient: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 27px,
-    #33d 28px
-  );
 }
 body {
   width: 400px;
   max-height: 570px;
   min-height: 570px;
   overflow-y: scroll;
-  background: rgb(41, 61, 81);
+  background: var(--color-app-bg);
   color: rgba(255 255 255 / 98%);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -145,4 +138,75 @@ trix-toolbar {
 }
 .ip {
   margin-top: 5px;
+}
+.menu-container {
+  position: absolute;
+  bottom: 0;
+  left: -420px;
+  background: var(--color-app-bg);
+  z-index: 1;
+  width: 100%;
+  height: 90%;
+  transition: 0.16s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.settings-container {
+  margin-top: 40px;
+}
+.theme-txt {
+  color: rgb(240, 240, 240);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 30px;
+}
+.visit-link {
+  display: block;
+  position: absolute;
+  bottom: 50px;
+  text-align: center;
+  text-decoration: none;
+  color: rgb(240, 240, 240);
+  font-size: 1.4rem;
+  margin-top: 200px;
+  font-weight: bold;
+}
+.color-picker {
+  width: 80px;
+  height: 25px;
+  cursor: pointer;
+  border: 3px solid rgb(240, 240, 240);
+  border-radius: 3px;
+  margin-top: 25px;
+  transition: 0.1s ease-in-out;
+}
+.green {
+  background: rgb(74, 128, 104);
+}
+.brown {
+  background: rgb(126, 91, 91);
+}
+.navy {
+  background: rgb(41, 61, 81);
+}
+.blue {
+  background: rgba(37, 103, 147, 0.899);
+}
+.red {
+  background: rgba(145, 74, 74, 0.899);
+}
+.colors-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.version {
+  position: absolute;
+  bottom: 8px;
+  color: rgb(240, 240, 240);
+  text-align: center;
+}
+.active {
+  border: 5px solid rgb(254, 246, 158);
 }
