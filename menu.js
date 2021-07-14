@@ -6,6 +6,8 @@ const themeContainer = document.querySelector(".colors-container");
 var currentColor = JSON.parse(window.localStorage.getItem("color"));
 document.documentElement.style.setProperty("--color-app-bg", currentColor);
 
+removeDefaultandSetActiveColor();
+
 let menuOpen = false;
 menuBtn.addEventListener("click", () => {
   if (!menuOpen) {
@@ -21,9 +23,9 @@ menuBtn.addEventListener("click", () => {
 
 var colors = themeContainer.getElementsByClassName("color-picker");
 
-for (var i = 0; i < colors.length; i++) {
+for (let i = 0; i < colors.length; i++) {
   colors[i].addEventListener("click", function () {
-    var current = document.getElementsByClassName("active");
+    let current = document.getElementsByClassName("active");
     current[0].className = current[0].className.replace(" active", "");
     this.className += " active";
   });
@@ -35,3 +37,16 @@ document.querySelectorAll(".color-picker").forEach((item) =>
     window.localStorage.setItem("color", JSON.stringify(item.id));
   })
 );
+function removeDefaultandSetActiveColor() {
+  var colors = themeContainer.getElementsByClassName("color-picker");
+  for (let i = 0; i < colors.length; i++) {
+    colors[i].classList.remove("active");
+  }
+  var activeColor = JSON.parse(window.localStorage.getItem("color"));
+  for (let j = 0; j < colors.length; j++) {
+    var rgb = colors[j].id;
+    if (activeColor === rgb) {
+      colors[j].classList.add("active");
+    }
+  }
+}
