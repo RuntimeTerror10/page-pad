@@ -192,7 +192,6 @@ function filterNotesOnClick(siteTitle, userInput) {
       const e = 0;
     } else {
       var noteTab = displayNotesInDOM(obj.title, obj.notes, fetchedUrlArr[i]);
-
       filterContainer.appendChild(noteTab);
     }
   }
