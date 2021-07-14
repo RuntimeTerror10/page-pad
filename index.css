@@ -116,6 +116,11 @@ body {
   color: rgb(240, 240, 240);
   font-size: 1.8rem;
 }
+.filter-heading {
+  text-align: center;
+  color: rgb(240, 240, 240);
+  font-size: 1.8rem;
+}
 .website-list,
 .filter-list {
   list-style-type: none;
@@ -143,10 +148,29 @@ body {
   font-size: 1.4rem;
   transition: 0.15s ease-in-out;
 }
+.filter-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgb(240, 240, 240);
+
+  font-size: 1.4rem;
+  transition: 0.15s ease-in-out;
+}
 .website-btn:hover {
   color: rgba(254, 246, 158, 0.945);
 }
+.filter-btn:hover {
+  color: rgba(254, 246, 158, 0.945);
+}
 .active {
+  color: rgba(254, 246, 158, 0.945);
+  text-decoration-color: rgb(254, 246, 158);
+  text-decoration: underline;
+  font-weight: bold;
+  transition: 0.2s ease-in-out;
+}
+.filter-active {
   color: rgba(254, 246, 158, 0.945);
   text-decoration-color: rgb(254, 246, 158);
   text-decoration: underline;
