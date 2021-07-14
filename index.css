@@ -116,7 +116,8 @@ body {
   color: rgb(240, 240, 240);
   font-size: 1.8rem;
 }
-.website-list {
+.website-list,
+.filter-list {
   list-style-type: none;
   margin-top: 50px;
   padding: 0;
@@ -125,7 +126,12 @@ body {
   margin: 20px 0;
   text-align: center;
 }
-.list-item {
+.filter-list li {
+  margin: 20px 0;
+  text-align: center;
+}
+.list-item,
+.filter-item {
   padding: 10px 0;
 }
 .website-btn {
@@ -154,4 +160,18 @@ body {
 }
 .website-btn:active {
   color: rgba(254, 246, 158, 0.945);
+}
+.checkbox-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+}
+.checkbox-label {
+  font-size: 1.3rem;
+  color: rgb(240, 240, 240);
+  margin-left: 10px;
+}
+.all-notes-check {
+  transform: scale(2);
+  margin-top: 5px;
 }
