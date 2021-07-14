@@ -4,7 +4,9 @@ const filterContainer = document.querySelector(".filter-notes-container");
 const filterList = document.querySelector(".filter-list");
 const websiteList = document.querySelector(".website-list");
 const checkbox = document.querySelector(".all-notes-check");
-const heading = document.querySelector(".websites-heading");
+const defaultHeading = document.querySelector(".websites-heading");
+const defaultList = document.querySelector(".default-container");
+const heading = document.querySelector(".filter-heading");
 
 var urlKeys = [];
 for (let i = 0; i < localStorage.length; i++) {
@@ -38,26 +40,27 @@ checkbox.addEventListener("change", () => {
   if (checkbox.checked == true) {
     searchBar.value = "";
     clearResult();
+    heading.style.display = "none";
     displayAllNotes();
     filterList.innerHTML = "";
-    heading.style.display = "none";
-    removeActiveDomainColor();
+    //heading.style.display = "none";
     hideList();
   } else {
+    displayActiveNotes();
     hideAllNotes();
-    heading.style.display = "block";
-
-    highlighAndDisplayNotesOfFirstDomain();
+    //heading.style.display = "block";
     showList();
   }
 });
-
+var counter = 0;
 urlMap.forEach(function (value, key) {
   var websiteListItem = document.createElement("li");
   websiteListItem.className = "list-item";
   websiteListItem.innerHTML = `<button class="website-btn">${key}</button>`;
   websiteList.appendChild(websiteListItem);
+  counter++;
 });
+defaultHeading.innerText = `Websites[ ${counter} ]`;
 
 highlighAndDisplayNotesOfFirstDomain();
 
@@ -78,7 +81,7 @@ var btnContainer = document.querySelector(".website-list");
 
 var btns = btnContainer.getElementsByClassName("website-btn");
 
-for (var i = 0; i < btns.length; i++) {
+for (let i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function () {
     var current = document.getElementsByClassName("active");
     current[0].className = current[0].className.replace(" active", "");
@@ -91,41 +94,31 @@ for (var i = 0; i < btns.length; i++) {
 searchBar.addEventListener("keyup", () => {
   if (searchBar.value.length === 0) {
     clearResult();
+    displayActiveNotes();
     showList();
     filterList.innerHTML = "";
-    container.style.display = "block";
+    heading.style.display = "none";
   }
   if (searchBar.value.length > 0) {
     var userInput = searchBar.value.toLowerCase();
     clearResult();
     hideList();
+    heading.style.display = "block";
     searchResult(userInput);
     searchDomain(userInput);
-    container.style.display = "none";
+    highlightFirstFilteredDomain();
+    setFilteredSiteActiveOnClick();
   }
 });
-
 searchBar.addEventListener("focus", () => {
-  removeActiveDomainColor();
-  checkbox.checked = false;
-  hideAllNotes();
-  showList();
-  if (searchBar.value.length === 0) {
-    clearResult();
-    displayAllNotes();
-  } else {
-    clearResult();
-    searchResult(searchBar.value);
+  if (checkbox.checked == true) {
+    checkbox.checked = false;
     hideAllNotes();
+    showList();
+    //heading.style.display = "block";
+    displayActiveNotes();
   }
 });
-searchBar.addEventListener("blur", () => {
-  hideAllNotes();
-  if (searchBar.value.length === 0) {
-    highlighAndDisplayNotesOfFirstDomain();
-  }
-});
-
 function clearResult() {
   filterContainer.innerHTML = "";
 }
@@ -220,6 +213,7 @@ function searchResult(userInput) {
 function searchDomain(userInput) {
   var input = userInput;
   filterList.innerHTML = "";
+  var counter = 0;
   urlMap.forEach(function (value, key) {
     var matched = false;
     for (let i = 0; i < value.length; i++) {
@@ -234,10 +228,12 @@ function searchDomain(userInput) {
         matched = true;
         const domain = document.createElement("li");
         domain.className = "filter-item";
-        domain.innerHTML = `<button class="website-btn">${key}</button>`;
+        domain.innerHTML = `<button class="filter-btn">${key}</button>`;
         filterList.appendChild(domain);
+        counter++;
       }
     }
+    heading.innerText = `Websites[ ${counter} ]`;
     document
       .querySelectorAll(".filter-item")
       .forEach((item) =>
@@ -278,11 +274,11 @@ function displayAllNotes() {
 }
 
 function hideList() {
-  websiteList.style.display = "none";
+  defaultList.style.display = "none";
 }
 
 function showList() {
-  websiteList.style.display = "block";
+  defaultList.style.display = "block";
 }
 
 function highlighAndDisplayNotesOfFirstDomain() {
@@ -301,8 +297,40 @@ function highlighAndDisplayNotesOfFirstDomain() {
   }
 }
 
-function removeActiveDomainColor() {
-  document
-    .querySelectorAll(".website-btn")
-    .forEach((item) => item.classList.remove("active"));
+function highlightFirstFilteredDomain() {
+  const sitelist = document.querySelectorAll(".filter-btn");
+  var firstItem = sitelist[0].innerText;
+  sitelist[0].classList.add("filter-active");
+
+  /*displaying notes of first list item*/
+  filterContainer.innerHTML = `<h1 class="site-title">${firstItem}</h1>`;
+  var siteArr = urlMap.get(firstItem);
+  for (let i = 0; i < siteArr.length; i++) {
+    var obj = JSON.parse(localStorage.getItem(siteArr[i]));
+    var notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
+    filterContainer.appendChild(notetab);
+  }
+}
+
+function displayActiveNotes() {
+  const activeSite = document.querySelector(".active").innerText;
+  var arr = urlMap.get(activeSite);
+  filterContainer.innerHTML = `<h1 class="site-title">${activeSite}</h1>`;
+  for (let i = 0; i < arr.length; i++) {
+    var obj = JSON.parse(localStorage.getItem(arr[i]));
+    var noteTab = displayNotesInDOM(obj.title, obj.notes, arr[i]);
+    filterContainer.appendChild(noteTab);
+  }
+}
+function setFilteredSiteActiveOnClick() {
+  const container = document.querySelector(".filter-list");
+  const filteredSites = container.querySelectorAll(".filter-btn");
+
+  for (let i = 0; i < filteredSites.length; i++) {
+    filteredSites[i].addEventListener("click", function () {
+      var current = document.getElementsByClassName("filter-active");
+      current[0].className = current[0].className.replace(" filter-active", "");
+      this.className += " filter-active";
+    });
+  }
 }
