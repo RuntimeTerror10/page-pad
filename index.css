@@ -115,16 +115,20 @@ body {
   text-align: center;
   color: rgb(240, 240, 240);
   font-size: 1.8rem;
+  border-bottom: 1.5px solid rgb(240, 240, 240);
+  padding-bottom: 30px;
 }
 .filter-heading {
   text-align: center;
   color: rgb(240, 240, 240);
   font-size: 1.8rem;
+  border-bottom: 1.5px solid rgb(240, 240, 240);
+  padding-bottom: 30px;
 }
 .website-list,
 .filter-list {
   list-style-type: none;
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 0;
 }
 .website-list li {

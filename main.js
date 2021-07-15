@@ -34,6 +34,7 @@ for (let x = 0; x < urlKeys.length; x++) {
   }
 }
 container.style.display = "none";
+heading.style.display = "none";
 showAllNotes();
 
 checkbox.addEventListener("change", () => {
@@ -60,7 +61,7 @@ urlMap.forEach(function (value, key) {
   websiteList.appendChild(websiteListItem);
   counter++;
 });
-defaultHeading.innerText = `Websites[ ${counter} ]`;
+defaultHeading.innerText = `Websites [ ${counter} ]`;
 
 highlighAndDisplayNotesOfFirstDomain();
 
@@ -233,7 +234,7 @@ function searchDomain(userInput) {
         counter++;
       }
     }
-    heading.innerText = `Websites[ ${counter} ]`;
+    heading.innerText = `Websites [ ${counter} ]`;
     document
       .querySelectorAll(".filter-item")
       .forEach((item) =>
