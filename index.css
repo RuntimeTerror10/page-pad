@@ -54,8 +54,8 @@ body {
   width: 99%;
   background: rgb(254, 246, 158);
   font-size: 1.1rem;
-  min-height: 160px;
-  max-height: 160px;
+  min-height: 230px;
+  max-height: 230px;
   overflow: auto;
   padding: 5px;
 }
