@@ -109,6 +109,7 @@ searchBar.addEventListener("keyup", () => {
     searchDomain(userInput);
     highlightFirstFilteredDomain();
     setFilteredSiteActiveOnClick();
+    filterActiveDomainNotesOnKeyUp(userInput);
   }
 });
 searchBar.addEventListener("focus", () => {
@@ -333,5 +334,22 @@ function setFilteredSiteActiveOnClick() {
       current[0].className = current[0].className.replace(" filter-active", "");
       this.className += " filter-active";
     });
+  }
+}
+function filterActiveDomainNotesOnKeyUp(input) {
+  var title = document.querySelector(".filter-active").innerText;
+  var arr = urlMap.get(title);
+  clearResult();
+  filterContainer.innerHTML = `<h1 class="site-title">${title}</h1>`;
+  for (let i = 0; i < arr.length; i++) {
+    var obj = JSON.parse(localStorage.getItem(arr[i]));
+    var compareTitle = isSubstring(input, obj.title);
+    var compareNotes = isSubstring(input, obj.notes);
+    if (compareTitle == -1 && compareNotes == -1) {
+      const e = 0;
+    } else {
+      var noteTab = displayNotesInDOM(obj.title, obj.notes, arr[i]);
+      filterContainer.appendChild(noteTab);
+    }
   }
 }
