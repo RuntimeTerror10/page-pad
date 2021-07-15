@@ -22,7 +22,8 @@ trix-toolbar .trix-button-row {
 trix-toolbar .trix-button-group {
   display: flex;
   border: 1px solid #bbb;
-  border-bottom-color: #888;
+  border-bottom-color: #191919;
+  border-right-color: #191919;
   border-radius: 3px;
 }
 trix-toolbar .trix-button-group:not(:first-child) {
