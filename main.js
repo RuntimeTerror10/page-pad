@@ -35,7 +35,6 @@ for (let x = 0; x < urlKeys.length; x++) {
 }
 
 heading.style.display = "none";
-showAllNotes();
 container.style.display = "none";
 
 checkbox.addEventListener("change", () => {
@@ -269,6 +268,7 @@ function isSubstring(s1, s2) {
 
 function hideAllNotes() {
   container.style.display = "none";
+  container.innerHTML = "";
 }
 
 function hideList() {
