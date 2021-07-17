@@ -24,7 +24,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     textBox.focus();
     let getObj = JSON.parse(localStorage.getItem(currentUrl));
     textBox.value = getObj.notes;
-    console.log(getObj.title);
   }
 
   textBox.addEventListener("blur", () => {
@@ -82,8 +81,11 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           noteTab.innerHTML = `
             <summary class="summary-heading">${pageId}</summary>
             <div class="readonly" >${pageNotes}</div>
+            <div class="ctrl-div"><button class="delete-btn" id="${tempUrl}"><img src="/img/trash.png"/></button></div>
+            
           `;
           allNotesContainer.appendChild(noteTab);
+          deleteNotesOnclick();
         } else {
           console.log("not a match");
         }
@@ -131,4 +133,14 @@ function hideNresetAllNotes() {
 
 function showAllNotesContainer() {
   allNotesContainer.style.display = "block";
+}
+
+function deleteNotesOnclick() {
+  document.querySelectorAll(".delete-btn").forEach((item) =>
+    item.addEventListener("click", () => {
+      let temp = item.parentNode;
+      temp.parentNode.style.display = "none";
+      window.localStorage.removeItem(item.id);
+    })
+  );
 }

@@ -72,8 +72,8 @@ trix-toolbar {
   display: none;
   overflow-y: scroll;
   overflow-x: hidden;
-  min-height: 380px;
-  max-height: 380px;
+  min-height: 430px;
+  max-height: 430px;
 }
 
 .site-name {

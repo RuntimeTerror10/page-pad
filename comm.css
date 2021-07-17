@@ -84,7 +84,36 @@ details[open] summary ~ * {
   width: 99%;
   background: rgb(254, 246, 158);
   font-size: 1.1rem;
-  min-height: 200px;
-  max-height: 200px;
+  min-height: 170px;
+  max-height: 170px;
   overflow: auto;
+}
+.ctrl-div {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+}
+.delete-btn {
+  background: rgb(255, 174, 174);
+  border: 1px solid rgb(235, 73, 100);
+  border-radius: 5px;
+  padding: 4px 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.visit {
+  text-decoration: none;
+  color: rgb(240, 240, 240);
+  font-weight: bold;
+  margin-top: 16px;
+  font-size: 1.1rem;
+  text-decoration: underline;
+}
+.visit-link {
+  text-decoration: none;
+  color: rgb(240, 240, 240);
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 1.3rem;
+  text-decoration: underline;
 }

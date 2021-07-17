@@ -203,3 +203,8 @@ body {
   transform: scale(2);
   margin-top: 5px;
 }
+.ctrl-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}

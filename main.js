@@ -33,23 +33,22 @@ for (let x = 0; x < urlKeys.length; x++) {
     urlMap.set(key, arr);
   }
 }
-container.style.display = "none";
+
 heading.style.display = "none";
 showAllNotes();
+container.style.display = "none";
 
 checkbox.addEventListener("change", () => {
   if (checkbox.checked == true) {
     searchBar.value = "";
     clearResult();
     heading.style.display = "none";
-    displayAllNotes();
+    showAllNotes();
     filterList.innerHTML = "";
-    //heading.style.display = "none";
     hideList();
   } else {
     displayActiveNotes();
     hideAllNotes();
-    //heading.style.display = "block";
     showList();
   }
 });
@@ -133,7 +132,7 @@ function displayNotesInDOM(tabTitle, tabNote, url) {
   noteTab.innerHTML = `
             <summary class="summary-heading">${tabTitle}</summary>
             <div class="readonly">${tabNote}</div>
-            <div class="link-wrap"><a class="visit-link" target="_blank" href=${url}>VISIT THIS PAGE</a></div>
+            <div class="ctrl-div"><a class="visit" target="_blank" href=${url}>VISIT THIS PAGE</a><button id="${url}" class="delete-btn"><img src="/img/trash.png"></button></div>
           `;
   return noteTab;
 }
@@ -141,12 +140,14 @@ function displayNotesInDOM(tabTitle, tabNote, url) {
 /* function to show all notes created by user*/
 
 function showAllNotes() {
+  container.style.display = "block";
   urlMap.forEach(function (value, key) {
     const subContainer = document.createElement("div");
     subContainer.innerHTML = `<h1 style ="color:rgb(41, 61, 81);font-size:1.7rem;">${key}</h1>`;
     subContainer.className = "site-notes";
     for (let i = 0; i < value.length; i++) {
-      const userObj = JSON.parse(localStorage.getItem(value[i]));
+      const userObj = getObjectFromLocalStorage(value[i]);
+
       var tabTitle = userObj.title;
       var tabNote = userObj.notes;
       var currenturl = value[i];
@@ -161,11 +162,10 @@ function showAllNotes() {
 /*function to show filtered notes of particular domain*/
 
 function showNotesOnClick(siteTitle) {
-  var fetchedUrlArr = urlMap.get(siteTitle);
-  filterContainer.innerHTML = `<h1 class="site-title">${siteTitle}</h1>`;
-
+  var fetchedUrlArr = getArrayFromMap(siteTitle);
   for (let i = 0; i < fetchedUrlArr.length; i++) {
-    var urlObject = JSON.parse(localStorage.getItem(fetchedUrlArr[i]));
+    var urlObject = getObjectFromLocalStorage(fetchedUrlArr[i]);
+
     var noteTab = displayNotesInDOM(
       urlObject.title,
       urlObject.notes,
@@ -177,10 +177,10 @@ function showNotesOnClick(siteTitle) {
 }
 
 function filterNotesOnClick(siteTitle, userInput) {
-  var fetchedUrlArr = urlMap.get(siteTitle);
-  filterContainer.innerHTML = `<h1 class="site-title">${siteTitle}</h1>`;
+  var fetchedUrlArr = getArrayFromMap(siteTitle);
   for (let i = 0; i < fetchedUrlArr.length; i++) {
-    var obj = JSON.parse(localStorage.getItem(fetchedUrlArr[i]));
+    var obj = getObjectFromLocalStorage(fetchedUrlArr[i]);
+
     var compareTitle = isSubstring(userInput, obj.title);
     var compareNotes = isSubstring(userInput, obj.notes);
     if (compareTitle == -1 && compareNotes == -1) {
@@ -196,7 +196,8 @@ function filterNotesOnClick(siteTitle, userInput) {
 
 function searchResult(userInput) {
   for (let k = 0; k < urlKeys.length; k++) {
-    var fetchedObj = JSON.parse(localStorage.getItem(urlKeys[k]));
+    var fetchedObj = getObjectFromLocalStorage(urlKeys[k]);
+
     var displayTitle = fetchedObj.title;
     var objTitle = fetchedObj.title.toLowerCase();
     var objNote = fetchedObj.notes;
@@ -219,7 +220,7 @@ function searchDomain(userInput) {
   urlMap.forEach(function (value, key) {
     var matched = false;
     for (let i = 0; i < value.length; i++) {
-      var obj = JSON.parse(localStorage.getItem(value[i]));
+      var obj = getObjectFromLocalStorage(value[i]);
       var title = obj.title;
       var notes = obj.notes;
       var compareTitle = isSubstring(input, title);
@@ -256,7 +257,6 @@ function isSubstring(s1, s2) {
   s2 = s2.toLowerCase();
   var query = s1.length;
   var string = s2.length;
-
   for (var i = 0; i <= string - query; i++) {
     var j;
     for (j = 0; j < query; j++) if (s2[i + j] != s1[j]) break;
@@ -269,10 +269,6 @@ function isSubstring(s1, s2) {
 
 function hideAllNotes() {
   container.style.display = "none";
-}
-
-function displayAllNotes() {
-  container.style.display = "block";
 }
 
 function hideList() {
@@ -290,10 +286,9 @@ function highlighAndDisplayNotesOfFirstDomain() {
   sitelist[0].classList.add("active");
 
   /*displaying notes of first list item*/
-  filterContainer.innerHTML = `<h1 class="site-title">${firstItem}</h1>`;
-  var siteArr = urlMap.get(firstItem);
+  var siteArr = getArrayFromMap(firstItem);
   for (let i = 0; i < siteArr.length; i++) {
-    var obj = JSON.parse(localStorage.getItem(siteArr[i]));
+    var obj = getObjectFromLocalStorage(siteArr[i]);
     var notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
     filterContainer.appendChild(notetab);
   }
@@ -305,21 +300,13 @@ function highlightFirstFilteredDomain() {
   sitelist[0].classList.add("filter-active");
 
   /*displaying notes of first list item*/
-  filterContainer.innerHTML = `<h1 class="site-title">${firstItem}</h1>`;
-  var siteArr = urlMap.get(firstItem);
-  for (let i = 0; i < siteArr.length; i++) {
-    var obj = JSON.parse(localStorage.getItem(siteArr[i]));
-    var notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
-    filterContainer.appendChild(notetab);
-  }
 }
 
 function displayActiveNotes() {
   const activeSite = document.querySelector(".active").innerText;
-  var arr = urlMap.get(activeSite);
-  filterContainer.innerHTML = `<h1 class="site-title">${activeSite}</h1>`;
+  var arr = getArrayFromMap(activeSite);
   for (let i = 0; i < arr.length; i++) {
-    var obj = JSON.parse(localStorage.getItem(arr[i]));
+    var obj = getObjectFromLocalStorage(arr[i]);
     var noteTab = displayNotesInDOM(obj.title, obj.notes, arr[i]);
     filterContainer.appendChild(noteTab);
   }
@@ -338,11 +325,10 @@ function setFilteredSiteActiveOnClick() {
 }
 function filterActiveDomainNotesOnKeyUp(input) {
   var title = document.querySelector(".filter-active").innerText;
-  var arr = urlMap.get(title);
+  var arr = getArrayFromMap(title);
   clearResult();
-  filterContainer.innerHTML = `<h1 class="site-title">${title}</h1>`;
   for (let i = 0; i < arr.length; i++) {
-    var obj = JSON.parse(localStorage.getItem(arr[i]));
+    var obj = getObjectFromLocalStorage(arr[i]);
     var compareTitle = isSubstring(input, obj.title);
     var compareNotes = isSubstring(input, obj.notes);
     if (compareTitle == -1 && compareNotes == -1) {
@@ -353,3 +339,35 @@ function filterActiveDomainNotesOnKeyUp(input) {
     }
   }
 }
+
+function getArrayFromMap(key) {
+  let arr = urlMap.get(key);
+  return arr;
+}
+
+function getObjectFromLocalStorage(key) {
+  let obj = JSON.parse(localStorage.getItem(key));
+  return obj;
+}
+/*
+function deleteNotesOnClick() {
+  document.querySelectorAll(".delete-btn").forEach((item) =>
+    item.addEventListener("click", () => {
+      let temp = item.parentNode;
+      temp.parentNode.innerHTML = "";
+      window.localStorage.removeItem(item.id);
+      if ((filterContainer.innerHTML = "")) {
+        removeActiveColorAndDeleteItem();
+        highlightFirstFilteredDomain();
+        displayActiveNotes();
+      }
+    })
+  );
+}
+function removeActiveColorAndDeleteItem() {
+  const sitelist = document.querySelectorAll(".filter-btn");
+  const active = sitelist.querySelector(".active");
+  active.classList.remove("active");
+  active.style.display = "none";
+}
+*/
