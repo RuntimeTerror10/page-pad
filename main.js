@@ -130,7 +130,7 @@ function displayNotesInDOM(tabTitle, tabNote, url) {
   const noteTab = document.createElement("details");
   noteTab.className = "all-notes-tab";
   noteTab.innerHTML = `
-            <summary class="summary-heading">${tabTitle}</summary>
+            <summary class="summary-heading">${sanitize(tabTitle)}</summary>
             <div class="readonly">${tabNote}</div>
             <div class="ctrl-div"><a class="visit" target="_blank" href=${url}>VISIT THIS PAGE</a><button id="${url}" class="delete-btn"><img src="/img/trash.png"></button></div>
           `;

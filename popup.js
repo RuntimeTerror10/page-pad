@@ -79,7 +79,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 
           noteTab.className = "all-notes-tab";
           noteTab.innerHTML = `
-            <summary class="summary-heading">${pageId}</summary>
+            <summary class="summary-heading">${sanitize(pageId)}</summary>
             <div class="readonly" >${pageNotes}</div>
             <div class="ctrl-div"><button class="delete-btn" id="${tempUrl}"><img src="/img/trash.png"/></button></div>
             
