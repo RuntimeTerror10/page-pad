@@ -1,9 +1,8 @@
-const container = document.querySelector(".all-notes-container");
 const searchBar = document.querySelector(".search-input");
 const filterContainer = document.querySelector(".filter-notes-container");
 const filterList = document.querySelector(".filter-list");
+const filterDomainContainer = document.querySelector(".filter-container");
 const websiteList = document.querySelector(".website-list");
-const checkbox = document.querySelector(".all-notes-check");
 const defaultHeading = document.querySelector(".websites-heading");
 const defaultList = document.querySelector(".default-container");
 const heading = document.querySelector(".filter-heading");
@@ -33,93 +32,37 @@ for (let x = 0; x < urlKeys.length; x++) {
     urlMap.set(key, arr);
   }
 }
-
-heading.style.display = "none";
-showAllNotes();
-container.style.display = "none";
-
-checkbox.addEventListener("change", () => {
-  if (checkbox.checked == true) {
-    searchBar.value = "";
-    clearResult();
-    heading.style.display = "none";
-    showAllNotes();
-    filterList.innerHTML = "";
-    hideList();
-  } else {
-    displayActiveNotes();
-    hideAllNotes();
-    showList();
-  }
-});
-var counter = 0;
-urlMap.forEach(function (value, key) {
-  var websiteListItem = document.createElement("li");
-  websiteListItem.className = "list-item";
-  websiteListItem.innerHTML = `<button class="website-btn">${key}</button>`;
-  websiteList.appendChild(websiteListItem);
-  counter++;
-});
-defaultHeading.innerText = `Websites [ ${counter} ]`;
-
+renderDefaultList();
 highlighAndDisplayNotesOfFirstDomain();
-
-document
-  .querySelectorAll(".list-item")
-  .forEach((item) =>
-    item.addEventListener(
-      "click",
-      () => (
-        clearResult(), showNotesOnClick(item.innerText), (searchBar.value = "")
-      )
-    )
-  );
-
+clickonDefaultListItems();
+deleteNotesOnClick();
 /*changing color of active domain from list*/
 
-var btnContainer = document.querySelector(".website-list");
-
-var btns = btnContainer.getElementsByClassName("website-btn");
-
-for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function () {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}
+setFirstElementActiveofDefaultList();
 
 /* notes searching*/
 
 searchBar.addEventListener("keyup", () => {
   if (searchBar.value.length === 0) {
     clearResult();
-    displayActiveNotes();
-    showList();
-    filterList.innerHTML = "";
-    heading.style.display = "none";
+    defaultList.innerHTML = "";
+    renderDefaultList();
+    highlighAndDisplayNotesOfFirstDomain();
+    setFirstElementActiveofDefaultList();
+    clickonDefaultListItems();
+    filterDomainContainer.innerHTML = "";
   }
   if (searchBar.value.length > 0) {
     var userInput = searchBar.value.toLowerCase();
     clearResult();
     hideList();
-    heading.style.display = "block";
-    searchResult(userInput);
     searchDomain(userInput);
-    highlightFirstFilteredDomain();
+    highlighAndDisplayNotesOfFirstDomain();
     setFilteredSiteActiveOnClick();
     filterActiveDomainNotesOnKeyUp(userInput);
   }
 });
-searchBar.addEventListener("focus", () => {
-  if (checkbox.checked == true) {
-    checkbox.checked = false;
-    hideAllNotes();
-    showList();
-    //heading.style.display = "block";
-    displayActiveNotes();
-  }
-});
+
 function clearResult() {
   filterContainer.innerHTML = "";
 }
@@ -137,28 +80,6 @@ function displayNotesInDOM(tabTitle, tabNote, url) {
   return noteTab;
 }
 
-/* function to show all notes created by user*/
-
-function showAllNotes() {
-  container.style.display = "block";
-  urlMap.forEach(function (value, key) {
-    const subContainer = document.createElement("div");
-    subContainer.innerHTML = `<h1 style ="color:rgb(41, 61, 81);font-size:1.7rem;">${key}</h1>`;
-    subContainer.className = "site-notes";
-    for (let i = 0; i < value.length; i++) {
-      const userObj = getObjectFromLocalStorage(value[i]);
-
-      var tabTitle = userObj.title;
-      var tabNote = userObj.notes;
-      var currenturl = value[i];
-      var noteTab = displayNotesInDOM(tabTitle, tabNote, currenturl);
-
-      subContainer.appendChild(noteTab);
-    }
-    container.appendChild(subContainer);
-  });
-}
-
 /*function to show filtered notes of particular domain*/
 
 function showNotesOnClick(siteTitle) {
@@ -174,6 +95,7 @@ function showNotesOnClick(siteTitle) {
 
     filterContainer.appendChild(noteTab);
   }
+  deleteNotesOnClick();
 }
 
 function filterNotesOnClick(siteTitle, userInput) {
@@ -190,33 +112,18 @@ function filterNotesOnClick(siteTitle, userInput) {
       filterContainer.appendChild(noteTab);
     }
   }
-}
-
-/*function to for searching results from local storage*/
-
-function searchResult(userInput) {
-  for (let k = 0; k < urlKeys.length; k++) {
-    var fetchedObj = getObjectFromLocalStorage(urlKeys[k]);
-
-    var displayTitle = fetchedObj.title;
-    var objTitle = fetchedObj.title.toLowerCase();
-    var objNote = fetchedObj.notes;
-
-    var compareTitle = isSubstring(userInput, objTitle);
-    var compareNotes = isSubstring(userInput, objNote);
-    if (compareTitle == -1 && compareNotes == -1) {
-      const e = 0;
-    } else {
-      var noteTab = displayNotesInDOM(displayTitle, objNote, urlKeys[k]);
-      filterContainer.appendChild(noteTab);
-    }
-  }
+  deleteNotesOnClick();
 }
 
 function searchDomain(userInput) {
   var input = userInput;
-  filterList.innerHTML = "";
+  filterDomainContainer.innerHTML = "";
   var counter = 0;
+  const heading = document.createElement("h1");
+  heading.className = "filter-heading";
+  const list = document.createElement("ul");
+  list.className = "website-list";
+  filterDomainContainer.appendChild(heading);
   urlMap.forEach(function (value, key) {
     var matched = false;
     for (let i = 0; i < value.length; i++) {
@@ -230,15 +137,14 @@ function searchDomain(userInput) {
       } else if (matched === false) {
         matched = true;
         const domain = document.createElement("li");
-        domain.className = "filter-item";
-        domain.innerHTML = `<button class="filter-btn">${key}</button>`;
-        filterList.appendChild(domain);
+        domain.className = "list-item";
+        domain.innerHTML = `<button class="website-btn">${key}</button>`;
+        list.appendChild(domain);
         counter++;
       }
     }
-    heading.innerText = `Websites [ ${counter} ]`;
     document
-      .querySelectorAll(".filter-item")
+      .querySelectorAll(".website-btn")
       .forEach((item) =>
         item.addEventListener(
           "click",
@@ -248,6 +154,10 @@ function searchDomain(userInput) {
         )
       );
   });
+
+  filterDomainContainer.appendChild(list);
+  heading.innerText = `Websites [ ${counter} ]`;
+  deleteNotesOnClick();
 }
 
 /* function to check is search query matches any page title or notes*/
@@ -267,16 +177,8 @@ function isSubstring(s1, s2) {
   return -1;
 }
 
-function hideAllNotes() {
-  container.style.display = "none";
-}
-
 function hideList() {
-  defaultList.style.display = "none";
-}
-
-function showList() {
-  defaultList.style.display = "block";
+  defaultList.innerHTML = "";
 }
 
 function highlighAndDisplayNotesOfFirstDomain() {
@@ -295,9 +197,9 @@ function highlighAndDisplayNotesOfFirstDomain() {
 }
 
 function highlightFirstFilteredDomain() {
-  const sitelist = document.querySelectorAll(".filter-btn");
+  const sitelist = document.querySelectorAll(".website-btn");
   var firstItem = sitelist[0].innerText;
-  sitelist[0].classList.add("filter-active");
+  sitelist[0].classList.add("active");
 
   /*displaying notes of first list item*/
 }
@@ -312,19 +214,19 @@ function displayActiveNotes() {
   }
 }
 function setFilteredSiteActiveOnClick() {
-  const container = document.querySelector(".filter-list");
-  const filteredSites = container.querySelectorAll(".filter-btn");
+  const container = document.querySelector(".website-list");
+  const filteredSites = container.querySelectorAll(".website-btn");
 
   for (let i = 0; i < filteredSites.length; i++) {
     filteredSites[i].addEventListener("click", function () {
-      var current = document.getElementsByClassName("filter-active");
-      current[0].className = current[0].className.replace(" filter-active", "");
-      this.className += " filter-active";
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace("active", "");
+      this.className += " active";
     });
   }
 }
 function filterActiveDomainNotesOnKeyUp(input) {
-  var title = document.querySelector(".filter-active").innerText;
+  var title = document.querySelector(".active").innerText;
   var arr = getArrayFromMap(title);
   clearResult();
   for (let i = 0; i < arr.length; i++) {
@@ -338,6 +240,7 @@ function filterActiveDomainNotesOnKeyUp(input) {
       filterContainer.appendChild(noteTab);
     }
   }
+  clickOnFilteredListItems();
 }
 
 function getArrayFromMap(key) {
@@ -371,3 +274,124 @@ function removeActiveColorAndDeleteItem() {
   active.style.display = "none";
 }
 */
+function renderDefaultList() {
+  const heading = document.createElement("h1");
+  heading.className = "websites-heading";
+  defaultList.appendChild(heading);
+  const list = document.createElement("ul");
+  list.className = "website-list";
+  var counter = 0;
+  urlMap.forEach(function (value, key) {
+    var websiteListItem = document.createElement("li");
+    websiteListItem.className = "list-item";
+    websiteListItem.innerHTML = `<button class="website-btn">${key}</button>`;
+    list.appendChild(websiteListItem);
+    counter++;
+  });
+
+  defaultList.appendChild(list);
+  heading.innerText = `Websites [ ${counter} ]`;
+}
+
+function setFirstElementActiveofDefaultList() {
+  var btnContainer = document.querySelector(".website-list");
+
+  var btns = btnContainer.getElementsByClassName("website-btn");
+
+  for (let i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function () {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
+}
+function clickonDefaultListItems() {
+  document
+    .querySelectorAll(".list-item")
+    .forEach((item) =>
+      item.addEventListener(
+        "click",
+        () => (
+          clearResult(),
+          showNotesOnClick(item.innerText),
+          (searchBar.value = "")
+        )
+      )
+    );
+  deleteNotesOnClick();
+}
+function clickOnFilteredListItems() {
+  document
+    .querySelectorAll(".list-item")
+    .forEach((item) =>
+      item.addEventListener(
+        "click",
+        () => (
+          clearResult(), filterNotesOnClick(item.innerText, searchBar.value)
+        )
+      )
+    );
+  deleteNotesOnClick();
+}
+function deleteNotesOnClick() {
+  document.querySelectorAll(".delete-btn").forEach((item) =>
+    item.addEventListener("click", () => {
+      var tabs = document.querySelectorAll(".all-notes-tab");
+      let temp = item.parentNode;
+      temp.parentNode.remove();
+      window.localStorage.removeItem(item.id);
+      var arr = updateArray();
+      updateMap(arr);
+
+      if (tabs.length === 1) {
+        if (searchBar.value.length > 0) {
+          filterDomainContainer.innerHTML = "";
+          searchDomain(searchBar.value);
+          highlighAndDisplayNotesOfFirstDomain();
+          setFilteredSiteActiveOnClick();
+          filterActiveDomainNotesOnKeyUp(searchBar.value);
+          defaultList.innerHTML = "";
+        } else {
+          defaultList.innerHTML = "";
+          renderDefaultList();
+          highlighAndDisplayNotesOfFirstDomain();
+          setFirstElementActiveofDefaultList();
+          clickonDefaultListItems();
+        }
+      }
+    })
+  );
+}
+
+function updateArray() {
+  var urls = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    let key = localStorage.key(i);
+    var obj = JSON.parse(localStorage.getItem(key));
+    if (typeof obj === "object") {
+      urls.push(key);
+    }
+  }
+  urlKeys = urls;
+  return urls;
+}
+function updateMap(arr) {
+  var map = new Map();
+
+  for (let x = 0; x < arr.length; x++) {
+    var tempUrl = new URL(arr[x]);
+    var key = tempUrl.hostname;
+
+    if (map.has(key)) {
+      var fetchedArr = map.get(key);
+      fetchedArr.push(arr[x]);
+      map.set(key, fetchedArr);
+    } else {
+      var ar = [];
+      ar.push(arr[x]);
+      map.set(key, ar);
+    }
+  }
+  urlMap = map;
+}
