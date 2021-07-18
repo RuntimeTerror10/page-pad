@@ -117,6 +117,7 @@ body {
   font-size: 1.8rem;
   padding-bottom: 30px;
   text-decoration: underline;
+  margin-top: 35px;
 }
 .filter-heading {
   text-align: center;
@@ -124,6 +125,7 @@ body {
   font-size: 1.8rem;
   padding-bottom: 30px;
   text-decoration: underline;
+  margin-top: 35px;
 }
 .website-list,
 .filter-list {
