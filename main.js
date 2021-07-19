@@ -71,12 +71,19 @@ function clearResult() {
 
 function displayNotesInDOM(tabTitle, tabNote, url) {
   const noteTab = document.createElement("details");
+  const tempUrl = new URL(url);
   noteTab.className = "all-notes-tab";
   noteTab.innerHTML = `
             <summary class="summary-heading">${tabTitle}</summary>
             <div class="readonly">${tabNote}</div>
             <div class="ctrl-div"><a class="visit" target="_blank" href=${url}>VISIT THIS PAGE</a><button id="${url}" class="delete-btn"><img src="/img/trash.png"></button></div>
           `;
+  if (!tempUrl.hostname){
+    const visit = noteTab.querySelector('.visit');
+    visit.addEventListener('click', () => { 
+      chrome.tabs.create({url: url})
+    });
+  }
   return noteTab;
 }
 
