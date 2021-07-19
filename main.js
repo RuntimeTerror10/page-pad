@@ -381,7 +381,7 @@ function updateMap(arr) {
 
   for (let x = 0; x < arr.length; x++) {
     var tempUrl = new URL(arr[x]);
-    var key = tempUrl.hostname;
+    var key = tempUrl.hostname || tempUrl.protocol.slice(0, -1);
 
     if (map.has(key)) {
       var fetchedArr = map.get(key);
