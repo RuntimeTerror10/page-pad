@@ -20,7 +20,7 @@ var urlMap = new Map();
 
 for (let x = 0; x < urlKeys.length; x++) {
   var tempUrl = new URL(urlKeys[x]);
-  var key = tempUrl.hostname;
+  var key = tempUrl.hostname || tempUrl.protocol.slice(0, -1);
 
   if (urlMap.has(key)) {
     var fetchedArr = urlMap.get(key);
