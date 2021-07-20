@@ -78,10 +78,10 @@ function displayNotesInDOM(tabTitle, tabNote, url) {
             <div class="readonly">${tabNote}</div>
             <div class="ctrl-div"><a class="visit" target="_blank" href=${url}>VISIT THIS PAGE</a><button id="${url}" class="delete-btn"><img src="/img/trash.png"></button></div>
           `;
-  if (!tempUrl.hostname){
-    const visit = noteTab.querySelector('.visit');
-    visit.addEventListener('click', () => { 
-      chrome.tabs.create({url: url})
+  if (!tempUrl.hostname) {
+    const visit = noteTab.querySelector(".visit");
+    visit.addEventListener("click", () => {
+      chrome.tabs.create({ url: url });
     });
   }
   return noteTab;
@@ -259,28 +259,7 @@ function getObjectFromLocalStorage(key) {
   let obj = JSON.parse(localStorage.getItem(key));
   return obj;
 }
-/*
-function deleteNotesOnClick() {
-  document.querySelectorAll(".delete-btn").forEach((item) =>
-    item.addEventListener("click", () => {
-      let temp = item.parentNode;
-      temp.parentNode.innerHTML = "";
-      window.localStorage.removeItem(item.id);
-      if ((filterContainer.innerHTML = "")) {
-        removeActiveColorAndDeleteItem();
-        highlightFirstFilteredDomain();
-        displayActiveNotes();
-      }
-    })
-  );
-}
-function removeActiveColorAndDeleteItem() {
-  const sitelist = document.querySelectorAll(".filter-btn");
-  const active = sitelist.querySelector(".active");
-  active.classList.remove("active");
-  active.style.display = "none";
-}
-*/
+
 function renderDefaultList() {
   const heading = document.createElement("h1");
   heading.className = "websites-heading";
