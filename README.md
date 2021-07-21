@@ -50,7 +50,7 @@ Page Pad is a Chrome extension for creating notes while browsing the web. Create
 
 <!-- GETTING STARTED -->
 # Getting Started
-  ### [Download Chrome Extension](https://twitter.com/parth_codes)
+  ### [Download Chrome Extension](https://chrome.google.com/webstore/detail/page-pad-make-quick-notes/igobdfagkcadgcfooegonbbeeggagakn?hl=en&authuser=0)
   ### <h2>Keyboard Shortcuts</h2>
   <p>Use the keyboard shortcut given below for different OS to open the extension<p>
   <ul>
