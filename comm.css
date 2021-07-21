@@ -100,6 +100,10 @@ details[open] summary ~ * {
   padding: 4px 20px;
   font-size: 1.1rem;
   cursor: pointer;
+  transition: 0.15s ease-in-out;
+}
+.delete-btn:hover {
+  background: rgb(241, 152, 152);
 }
 .visit {
   text-decoration: none;
