@@ -45,7 +45,7 @@ setFirstElementActiveofDefaultList();
 searchBar.addEventListener("keyup", () => {
   if (searchBar.value.length === 0) {
     for (let key in localStorage) {
-      if (localStorage.length === 1 && typeof key !== "object") {
+      if (localStorage.length === 1 && typeof (key !== "object")) {
         filterDomainContainer.innerHTML = "";
       }
     }
