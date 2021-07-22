@@ -91,6 +91,9 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         }
       }
     } else {
+      if (window.localStorage.getItem(currentUrl) == null) {
+        textBox.value = "";
+      }
       displayNotesContaniner();
       hideNresetAllNotes();
       siteName.style.display = "none";
