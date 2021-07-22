@@ -44,6 +44,17 @@ setFirstElementActiveofDefaultList();
 
 searchBar.addEventListener("keyup", () => {
   if (searchBar.value.length === 0) {
+    var count = 0;
+    for (let k = 0; k < localStorage.length; k++) {
+      let key = localStorage.key(k);
+      let ob = JSON.parse(localStorage.getItem(key));
+      if (typeof ob === "object") {
+        count++;
+      }
+    }
+    if (count === 0) {
+      filterDomainContainer.innerHTML = "";
+    }
     clearResult();
     defaultList.innerHTML = "";
     renderDefaultList();
