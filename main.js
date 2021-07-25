@@ -157,20 +157,18 @@ function searchDomain(userInput) {
         const domain = document.createElement("li");
         domain.className = "list-item";
         domain.innerHTML = `<button class="website-btn">${key}</button>`;
+        domain
+          .querySelector('.website-btn')
+          .addEventListener(
+            "click",
+            () => (
+              clearResult(), filterNotesOnClick(key, input)
+            )
+          )
         list.appendChild(domain);
         counter++;
       }
     }
-    document
-      .querySelectorAll(".website-btn")
-      .forEach((item) =>
-        item.addEventListener(
-          "click",
-          () => (
-            clearResult(), filterNotesOnClick(item.innerText, searchBar.value)
-          )
-        )
-      );
   });
 
   filterDomainContainer.appendChild(list);
@@ -258,7 +256,6 @@ function filterActiveDomainNotesOnKeyUp(input) {
       filterContainer.appendChild(noteTab);
     }
   }
-  clickOnFilteredListItems();
 }
 
 function getArrayFromMap(key) {
@@ -313,19 +310,6 @@ function clickonDefaultListItems() {
           clearResult(),
           showNotesOnClick(item.innerText),
           (searchBar.value = "")
-        )
-      )
-    );
-  deleteNotesOnClick();
-}
-function clickOnFilteredListItems() {
-  document
-    .querySelectorAll(".list-item")
-    .forEach((item) =>
-      item.addEventListener(
-        "click",
-        () => (
-          clearResult(), filterNotesOnClick(item.innerText, searchBar.value)
         )
       )
     );
