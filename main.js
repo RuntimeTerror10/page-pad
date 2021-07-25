@@ -56,7 +56,7 @@ searchBar.addEventListener("keyup", () => {
       filterDomainContainer.innerHTML = "";
     }
     clearResult();
-    defaultList.innerHTML = "";
+    hideList();
     renderDefaultList();
     highlighAndDisplayNotesOfFirstDomain();
     setFirstElementActiveofDefaultList();
