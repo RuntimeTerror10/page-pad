@@ -21,10 +21,6 @@ trix-toolbar .trix-button-row {
 }
 trix-toolbar .trix-button-group {
   display: flex;
-  border: 1px solid #bbb;
-  border-bottom-color: #191919;
-  border-right-color: #191919;
-  border-radius: 3px;
 }
 trix-toolbar .trix-button-group:not(:first-child) {
   margin-left: 1.5vw;
@@ -52,9 +48,8 @@ trix-toolbar .trix-button {
   padding: 0.8rem;
   margin: 0;
   border: none;
-  border-bottom: 1px solid #ddd;
   border-radius: 0;
-  background: #fff;
+  background: #f8f8f8;
 }
 trix-toolbar .trix-button:not(:first-child) {
   border-left: 1px solid #ccc;
@@ -226,10 +221,6 @@ trix-editor [data-trix-mutable].attachment__caption-editor:focus::selection {
   background: highlight;
 }
 
-trix-editor [data-trix-mutable].attachment.attachment--file {
-  box-shadow: 0 0 0 2px highlight;
-  border-color: transparent;
-}
 trix-editor [data-trix-mutable].attachment img {
   box-shadow: 0 0 0 2px highlight;
 }
@@ -442,14 +433,7 @@ trix-editor .attachment__metadata .attachment__size {
   font-size: 0.9em;
   line-height: 1.2;
 }
-.trix-content .attachment--file {
-  color: #333;
-  line-height: 1;
-  margin: 0 2px 2px 2px;
-  padding: 0.4em 1em;
-  border: 1px solid #bbb;
-  border-radius: 5px;
-}
+
 .trix-content .attachment-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -464,4 +448,7 @@ trix-editor .attachment__metadata .attachment__size {
 .trix-content .attachment-gallery.attachment-gallery--4 .attachment {
   flex-basis: 50%;
   max-width: 50%;
+}
+.trix-button-group--file-tools {
+  display: none !important;
 }
