@@ -4,7 +4,7 @@ const menu = document.querySelector(".menu-container");
 const themeContainer = document.querySelector(".colors-container");
 
 var currentColor = JSON.parse(window.localStorage.getItem("color"));
-document.documentElement.style.setProperty("--color-app-bg", currentColor);
+document.documentElement.style.setProperty("--color-theme", currentColor);
 
 removeDefaultandSetActiveColor();
 
@@ -33,7 +33,7 @@ for (let i = 0; i < colors.length; i++) {
 
 document.querySelectorAll(".color-picker").forEach((item) =>
   item.addEventListener("click", () => {
-    document.documentElement.style.setProperty("--color-app-bg", item.id);
+    document.documentElement.style.setProperty("--color-theme", item.id);
     window.localStorage.setItem("color", JSON.stringify(item.id));
   })
 );
