@@ -81,13 +81,17 @@ function highlightAndDisplayNotesOfFirstDomain() {
   const sitelist = document.querySelectorAll(".website-btn");
   var firstItem = sitelist[0].innerText;
   sitelist[0].classList.add("active");
+  var siteArr = getArrayFromMap(firstItem);
 
-  /*displaying notes of first list item*/
-  let siteArr = getArrayFromMap(firstItem);
-  for (let i = 0; i < siteArr.length; i++) {
-    let obj = getObjectFromLocalStorage(siteArr[i]);
-    let notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
-    filterContainer.appendChild(notetab);
+  if (searchBar.value.length === 0) {
+    /*displaying notes of first list item*/
+    for (let i = 0; i < siteArr.length; i++) {
+      let obj = getObjectFromLocalStorage(siteArr[i]);
+      let notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
+      filterContainer.appendChild(notetab);
+    }
+  } else {
+    filterNotesOfFirstDomainOnKeyUp(searchBar.value);
   }
 }
 
@@ -158,15 +162,14 @@ function showNotesOfActiveDomain() {
   clearResult();
   const activeDomain = document.querySelector(".active").innerText;
   var arr = getArrayFromMap(activeDomain);
-  if (searchBar.value == "") {
+  if (searchBar.value.length === 0) {
     for (let i = 0; i < arr.length; i++) {
       let obj = getObjectFromLocalStorage(arr[i]);
       let notetab = displayNotesInDOM(obj.title, obj.notes, arr[i]);
       filterContainer.appendChild(notetab);
     }
   } else {
-    let searchTerm = searchBar.value;
-    filterNotesOfActiveDomainOnClick(searchTerm, arr);
+    filterNotesOfActiveDomainOnClick(searchBar.value, arr);
   }
   handleNoteDeletion();
 }
@@ -282,4 +285,30 @@ function updateMap(arr) {
     }
   }
   urlMap = map;
+}
+
+function filterNotesOfFirstDomainOnKeyUp(input) {
+  clearResult();
+  const sitelist = document.querySelectorAll(".website-btn");
+  var firstItem = sitelist[0].innerText;
+  var siteArr = getArrayFromMap(firstItem);
+  if (input.length !== 0) {
+    for (let i = 0; i < siteArr.length; i++) {
+      var obj = getObjectFromLocalStorage(siteArr[i]);
+      var compareTitle = isSubstring(input, obj.title);
+      var compareNotes = isSubstring(input, obj.notes);
+      if (compareTitle == -1 && compareNotes == -1) {
+        const e = 0;
+      } else {
+        var noteTab = displayNotesInDOM(obj.title, obj.notes, siteArr[i]);
+        filterContainer.appendChild(noteTab);
+      }
+    }
+  } else {
+    for (let j = 0; j < siteArr.length; j++) {
+      let obj = getObjectFromLocalStorage(siteArr[j]);
+      let notetab = displayNotesInDOM(obj.title, obj.notes, siteArr[j]);
+      filterContainer.appendChild(notetab);
+    }
+  }
 }
