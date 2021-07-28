@@ -79,6 +79,7 @@ body {
   background: #f8f8f8;
   box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.08);
   padding: 10px;
+  outline: none;
 }
 .input {
   color: #747474;

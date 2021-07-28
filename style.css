@@ -60,6 +60,7 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   border: 3px solid var(--color-theme);
   box-shadow: 0px 20px 20px 5px rgba(0, 0, 0, 0.06);
+  outline: none;
 }
 trix-editor {
   color: white;
