@@ -36,11 +36,16 @@ body {
   display: flex;
   margin-left: -10px;
 }
+.main-title-wrap img {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+}
 .main-title {
   font-family: MPLUSRounded1c-Medium;
   text-align: center;
-  font-size: 1.5rem;
-  margin-top: 10px;
+  font-size: 1.7rem;
+  margin-top: 5px;
   color: var(--color-theme);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
@@ -189,14 +194,10 @@ trix-toolbar {
 }
 .visit-link {
   display: block;
-  position: absolute;
-  bottom: 50px;
   text-align: center;
-  text-decoration: none;
   color: var(--color-theme);
-  font-size: 1.4rem;
-  margin-top: 200px;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-family: "MPLUSRounded1c-Medium";
 }
 .color-picker {
   width: 80px;
@@ -245,10 +246,10 @@ trix-toolbar {
   justify-content: center;
 }
 .version {
-  position: absolute;
-  bottom: 8px;
   color: var(--color-theme);
   text-align: center;
+  margin-bottom: -1px;
+  font-family: "MPLUSRounded1c-Medium";
 }
 trix-toolbar .trix-button-group {
   overflow: hidden;
@@ -286,4 +287,26 @@ trix-toolbar .trix-button-group {
 }
 .svg-stroke {
   stroke: var(--color-theme);
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+}
+.footer h3 {
+  align-self: flex-end;
+}
+.review-link {
+  color: var(--color-theme);
+  font-size: 1.1rem;
+  font-family: "MPLUSRounded1c-Medium";
+}
+.link-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }

@@ -44,18 +44,12 @@ summary::marker {
   border-radius: 15px;
   transition: height 0.2s ease-in-out;
   overflow: hidden;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 .all-notes-hr {
   margin: 15px 0;
   border-color: #191919;
   opacity: 0.4;
-}
-.readonly-textarea {
-  box-sizing: border-box;
-  width: 99%;
-  margin: 0 auto;
-  border: none;
 }
 details[open] summary ~ * {
   animation: sweep 0.25s ease-in-out;
@@ -74,13 +68,14 @@ details[open] summary ~ * {
   padding: 5px;
   margin: 0 auto;
   border: none;
-  width: 96.5%;
+  width: 98.5%;
   background: var(--color-note-bg);
   font-size: 1.1rem;
-  min-height: 170px;
-  max-height: 170px;
+  min-height: 190px;
+  max-height: 190px;
   overflow: auto;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
 }
 .ctrl-div {
   display: flex;
