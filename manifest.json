@@ -4,7 +4,7 @@
   "name": "Page Pad : Make quick notes",
   "description": "Create notes instantly for individual webpages while browsing the web.",
   "author": "Parth Bhardwaj",
-  "version": "2.0",
+  "version": "2.0.2",
   "background": {
     "scripts": ["background.js"],
     "persistent": false
@@ -13,7 +13,7 @@
     "default_popup": "popup.html"
   },
   "icons": {
-    "128": "/img/img1.png"
+    "128": "/img/logo.png"
   },
   "commands": {
     "_execute_browser_action": {
