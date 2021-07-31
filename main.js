@@ -63,7 +63,7 @@ function renderDomainList() {
   let domainCount = domainList.length;
   let counter = document.createElement("h1");
   counter.className = "websites-heading";
-  counter.innerText = `Websites  [ ${domainCount} ]`;
+  counter.innerText = `Websites  [${domainCount}]`;
   domainListContainer.appendChild(counter);
   let list = document.createElement("ul");
   list.className = "website-list";
